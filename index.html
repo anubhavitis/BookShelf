@@ -8,17 +8,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
         integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="assets/style.css">
 
 </head>
 
-<body class="mybody">
+<body>
     <div class="myfavdiv">
         <div class="container">
             <nav class="navbar" role="navigation" aria-label="main navigation">
                 <div class="navbar-brand">
-                    <a class="navbar-item" href="https://bulma.io">
+                    <a class="navbar-item" href="/">
                         <i class="fas fa-book-reader fa-3x"></i>
+                        <p class="text_brand" >BOOKSHELF</p>
                     </a>
 
                     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
@@ -30,7 +31,7 @@
                 </div>
 
                 <div id="navbarBasicExample" class="navbar-menu">
-                    <div class="navbar-start">
+                    <!-- <div class="navbar-start">
                         <a class="navbar-item text">
                             Home
                         </a>
@@ -38,12 +39,13 @@
                         <a class="navbar-item text">
                             Documentation
                         </a>
-                    </div>
+                    </div> -->
 
                     <div class="navbar-end">
                         <div class="navbar-item">
                             <div class="buttons">
-                                <a class="button is-primary">
+                                <a class="button is-primary" href="https://github.com/anubhavitis/BookShelf">
+                                    <i class="fab fa-github-square fa-2x"></i>
                                     <strong>Github repo</strong>
                                 </a>
                             </div>
@@ -59,63 +61,69 @@
                     </div>
                 </div>
             </nav>
+
+            <section class="section">
+                <form>
+                    <div class="field">
+                            <div class="columns">
+                                <div class="column is-6">
+                                    <label class="label">Book-Name</label>
+                                    <div class="control ">
+                                        <input class="input is-rounded" type="text" placeholder="e.g Pitch Anything">
+                                    </div>
+                                </div>
+                                <div class="column is-6">
+                                    <label class="label">Written by</label>
+                                    <div class="control">
+                                        <input class="input is-rounded" type="text" placeholder="e.g. Oren Klaff">
+                                    </div>
+                                </div>
+                                <div class="column is-12">
+                                    <div class="field">
+                                        <label class="label">Why you love this book?</label>
+                                        <div class="control">
+                                            <input class="input is-rounded" placeholder="text"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field is-grouped">
+                                <div class="control">
+                                    <button class="button is-primary"><strong>Submit</strong></button>
+                                </div>
+                            </div>
+                    </div>
+    
+                </form>
+            </section>
         </div>
     </div>
     <div class="container">
-        <section class="section">
-            <form>
-                <div class="field">
-                    <label class="label">Name</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="e.g Alex Smith">
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Email</label>
-                    <div class="control">
-                        <input class="input" type="email" placeholder="e.g. alexsmith@gmail.com">
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Message</label>
-                    <div class="control">
-                        <textarea class="textarea" placeholder="Textarea"></textarea>
-                    </div>
-                </div>
-                <div class="field is-grouped">
-                    <div class="control">
-                        <button class="button is-light"><strong>Submit</strong></button>
-                    </div>
-                </div>
-            </form>
-            <br />
-
-            <div class="columns">
-
-                <!-- My card template for the edit. -->
-                <div class="card column is-4">
+        <div class="columns">
+            <!-- My card template for the edit. -->
+            {{ range . }}
+            <div class="card column is-4">
+                <div class="card_border">
                     <header class="card-header">
                         <p class="card-header-title">
-                            Component
+                            <strong>{{ .Name }}</strong>
                         </p>
                     </header>
-                    <div class="card-content">
-                        <div class="content">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                            <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-                            <br>
-                        </div>
+                </div>
+                <div class="card-content card_border">
+                    <div class="content">
+                        By <strong>{{ .Author }}</strong> 
+                        <br> {{ .Content }}
                     </div>
+                </div>
+                <div class="card_border">
                     <footer class="card-footer">
-                        <a href="#" class="card-footer-item">Edit</a>
+                        <a href="#" class="card-footer-item">{{.likes}} likes</a>
                         <a href="#" class="card-footer-item">Delete</a>
                     </footer>
                 </div>
-
             </div>
-        </section>
+        </div>
     <script>
         (function () {
             var burger = document.querySelector('.burger');
