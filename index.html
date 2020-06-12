@@ -12,7 +12,7 @@
 
 </head>
 
-<body>
+<body class="mybody">
     <div class="myfavdiv">
         <div class="container">
             <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -63,37 +63,37 @@
             </nav>
 
             <section class="section">
-                <form>
+                <form action="/submit" method="GET">
                     <div class="field">
-                            <div class="columns">
-                                <div class="column is-6">
-                                    <label class="label">Book-Name</label>
-                                    <div class="control ">
-                                        <input class="input is-rounded" type="text" placeholder="e.g Pitch Anything">
-                                    </div>
-                                </div>
-                                <div class="column is-6">
-                                    <label class="label">Written by</label>
-                                    <div class="control">
-                                        <input class="input is-rounded" type="text" placeholder="e.g. Oren Klaff">
-                                    </div>
-                                </div>
-                                <div class="column is-12">
-                                    <div class="field">
-                                        <label class="label">Why you love this book?</label>
-                                        <div class="control">
-                                            <input class="input is-rounded" placeholder="text"></textarea>
-                                        </div>
-                                    </div>
+                        <div class="columns">
+                            <div class="column is-6">
+                                <label class="label">Book-Name</label>
+                                <div class="control ">
+                                    <input class="input is-rounded" type="text" placeholder="e.g Pitch Anything" name="name" required>
                                 </div>
                             </div>
-                            <div class="field is-grouped">
+                            <div class="column is-6">
+                                <label class="label">Written by</label>
                                 <div class="control">
-                                    <button class="button is-primary"><strong>Submit</strong></button>
+                                    <input class="input is-rounded" type="text" placeholder="e.g. Oren Klaff" name="author" required>
                                 </div>
                             </div>
+                            <div class="column is-12">
+                                <div class="field">
+                                    <label class="label">Why you love this book?</label>
+                                    <div class="control">
+                                        <input class="input is-rounded" placeholder="It teaches how human brain reacts to any information is presendted to them" name="content" required>
+                                    </input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button class="button is-primary" type="submit"><strong>Submit</strong></button>
+                            </div>
+                        </div>
                     </div>
-    
                 </form>
             </section>
         </div>
@@ -123,7 +123,9 @@
                     </footer>
                 </div>
             </div>
+            {{end}}
         </div>
+    </div>
     <script>
         (function () {
             var burger = document.querySelector('.burger');

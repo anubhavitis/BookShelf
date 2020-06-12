@@ -85,8 +85,9 @@ a.navbar-item:hover{
    padding-right: 10px;
  }
 
-.myfavdiv{
-  background-image: url("assets/body.jpg");
+.mybody{
+  background: url("/assets/body4.svg");
   /* background-color: tomato; */
-  background-size: auto;
+  background-size: cover;
+
 }
