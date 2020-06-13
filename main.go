@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -138,7 +139,7 @@ func main() {
 	mux.HandleFunc("/", IndexHandler)
 	mux.HandleFunc("/submit", SubmitHandler)
 
-	// port := os.Getenv("PORT")
-	// http.ListenAndServe(":"+port, mux)
-	http.ListenAndServe(":8080", mux)
+	port := os.Getenv("PORT")
+	http.ListenAndServe(":"+port, mux)
+	// http.ListenAndServe(":8080", mux)
 }
