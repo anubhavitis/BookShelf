@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BookShelf</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
@@ -112,13 +113,13 @@
                 </div>
                 <div class="card-content card_border">
                     <div class="content">
-                        By <strong>{{ .Author }}</strong> 
+                        Book by: <strong>{{ .Author }}</strong> 
                         <br> {{ .Content }}
                     </div>
                 </div>
                 <div class="card_border">
                     <footer class="card-footer">
-                        <a href="#" class="card-footer-item">{{.likes}} likes</a>
+                        <a href="#" class="card-footer-item">{{ .Likes }} likes</a>
                         <a href="#" class="card-footer-item">Delete</a>
                     </footer>
                 </div>
