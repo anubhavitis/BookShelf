@@ -103,25 +103,29 @@
         <div class="columns">
             <!-- My card template for the edit. -->
             {{ range . }}
-            <div class="card column is-4">
-                <div class="card_border">
-                    <header class="card-header">
-                        <p class="card-header-title">
-                            <strong>{{ .Name }}</strong>
+            <div class="column is-4">
+                <div class="bookItem">
+                    <div class="book-head">
+                        <p>
+                            <strong class="book-bold">Name:</strong> {{ .Name }}
                         </p>
-                    </header>
-                </div>
-                <div class="card-content card_border">
-                    <div class="content">
-                        Book by: <strong>{{ .Author }}</strong> 
-                        <br> {{ .Content }}
                     </div>
-                </div>
-                <div class="card_border">
-                    <footer class="card-footer">
-                        <a href="#" class="card-footer-item">{{ .Likes }} likes</a>
-                        <a href="#" class="card-footer-item">Delete</a>
-                    </footer>
+                    <div class="book-data">
+                        <p>
+                            <div>
+                                <strong class="book-bold">Book by: </strong> {{ .Author }}
+                            </div>
+                            <div>
+                                <strong class="book-bold">About book: </strong> {{ .Content }}
+                            </div>
+                        </p>
+                    </div>
+                    <div class="book-footer">
+                        <p>
+                            <div class="book-footer-item"> <a href="#">{{ .Likes }} likes</a></div>
+                            <div class="book-footer-item"> <a href="#">Delete</a> </div>
+                        </p>
+                    </div>
                 </div>
             </div>
             {{end}}
