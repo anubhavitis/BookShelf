@@ -7,13 +7,22 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"strconv"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
 var tpl = template.Must(template.ParseFiles("index.html"))
 var db *sql.DB
-var priBooks = make(map[string]bool)
+var priBooks = make(map[string]Book)
+
+//Book structure
+type Book struct {
+	Name    string
+	Author  string
+	Content string
+	Favo    int
+}
 
 func initDb() {
 	dab, err := sql.Open("mysql", "zeddie:1234567890@(127.0.0.1:3306)/mysql?parseTime=true")
@@ -40,7 +49,7 @@ func newTable() {
 		name TEXT NOT NULL,
 		author TEXT NOT NULL,
 		content TEXT NOT NULL,
-		likes INT,
+		favo INT,
 		PRIMARY KEY (id)
 	);`
 	if _, err := db.Exec(query); err != nil {
@@ -49,18 +58,10 @@ func newTable() {
 	fmt.Println("New Table Created!")
 }
 
-//Book structure
-type Book struct {
-	Name    string
-	Author  string
-	Content string
-	Likes   int
-}
-
 //ReadBooks read all books and stores it in the map books
 func ReadBooks() []Book {
 	var books []Book
-	rows, er := db.Query(`SELECT name,author,content,likes FROM mybooks`)
+	rows, er := db.Query(`SELECT name,author,content,favo FROM mybooks`)
 	if er != nil {
 		log.Fatal(er)
 	}
@@ -68,11 +69,11 @@ func ReadBooks() []Book {
 
 	for rows.Next() {
 		var temp Book
-		if err := rows.Scan(&temp.Name, &temp.Author, &temp.Content, &temp.Likes); err != nil {
+		if err := rows.Scan(&temp.Name, &temp.Author, &temp.Content, &temp.Favo); err != nil {
 			log.Fatal(err)
 		}
 		books = append(books, temp)
-		priBooks[temp.Name] = true
+		priBooks[temp.Name] = temp
 	}
 	return books
 }
@@ -96,18 +97,18 @@ func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 	books := ReadBooks()
 	fmt.Println("Current database")
 	for x := range books {
-		fmt.Println(books[x].Name, books[x].Author, books[x].Content, books[x].Likes)
+		fmt.Println(books[x].Name, books[x].Author, books[x].Content, books[x].Favo)
 	}
 	params := u.Query()
 	newBook := &Book{}
 	newBook.Name = params.Get("name")
 	newBook.Author = params.Get("author")
 	newBook.Content = params.Get("content")
-	newBook.Likes = 0
+	newBook.Favo = 0
 	fmt.Println("Book read", newBook.Name)
 
 	//If Book is already present
-	if priBooks[newBook.Name] == true {
+	if priBooks[newBook.Name].Name == newBook.Name {
 		fmt.Println("Book already exists in the record.")
 		if err := tpl.Execute(w, books); err != nil {
 			fmt.Println("Error here at executing template.")
@@ -116,8 +117,8 @@ func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	query := ` INSERT INTO mybooks (name, author, content, likes) VALUES (?,?,?,?)`
-	if _, e := db.Exec(query, newBook.Name, newBook.Author, newBook.Content, newBook.Likes); e != nil {
+	query := ` INSERT INTO mybooks (name, author, content, favo) VALUES (?,?,?,?)`
+	if _, e := db.Exec(query, newBook.Name, newBook.Author, newBook.Content, newBook.Favo); e != nil {
 		log.Fatal(err)
 	}
 	books = append(books, *newBook)
@@ -128,6 +129,46 @@ func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 	}
 }
 
+//UpdateHandler function
+func UpdateHandler(w http.ResponseWriter, req *http.Request) {
+	u, err := url.Parse(req.URL.String())
+	if err != nil {
+		log.Fatal(err)
+		return
+	}
+	params := u.Query()
+	name := params.Get("name")
+	fav, err1 := strconv.Atoi(params.Get("fav"))
+	if err1 != nil {
+		log.Fatal(err1)
+	}
+	del, err2 := strconv.Atoi(params.Get("del"))
+	if err2 != nil {
+		log.Fatal(err1)
+	}
+	if del == 0 {
+		fav = fav ^ 1
+		q := "UPDATE mybooks SET favo=? WHERE name=?"
+		if _, e := db.Exec(q, fav, name); e != nil {
+			fmt.Println("Upating database error!")
+			log.Fatal(e)
+		}
+	} else {
+		q := "DELETE FROM mybooks WHERE name=?"
+		if _, e := db.Exec(q, name); e != nil {
+			fmt.Println("Upating database error!")
+			log.Fatal(e)
+		}
+		delete(priBooks, name)
+	}
+	books := ReadBooks()
+
+	if e := tpl.Execute(w, books); e != nil {
+		fmt.Println("Error here at executing template.")
+		log.Fatal(e)
+	}
+
+}
 func main() {
 	initDb()
 	newTable()
@@ -135,8 +176,10 @@ func main() {
 	mux := http.NewServeMux()
 	assets := http.FileServer(http.Dir("assets"))
 	mux.Handle("/assets/", http.StripPrefix("/assets/", assets))
+
 	mux.HandleFunc("/", IndexHandler)
 	mux.HandleFunc("/submit", SubmitHandler)
+	mux.HandleFunc("/update", UpdateHandler)
 
 	// port := os.Getenv("PORT")
 	// http.ListenAndServe(":"+port, mux)

@@ -122,8 +122,10 @@
                     </div>
                     <div class="book-footer">
                         <p>
-                            <div class="book-footer-item"> <a href="#">{{ .Likes }} likes</a></div>
-                            <div class="book-footer-item"> <a href="#">Delete</a> </div>
+                            <div class="book-footer-item"> <a href="/update?name={{ .Name }}&fav={{ .Favo }}&del=0">
+                                {{if eq .Favo 1}} Marked as favourite
+                                {{else }} Mark as favourite {{end}} </a></div>
+                            <div class="book-footer-item"> <a href="/update?name={{ .Name }}&fav={{ .Favo }}&del=1">Delete</a> </div>
                         </p>
                     </div>
                 </div>
