@@ -183,6 +183,9 @@ func main() {
 	mux.HandleFunc("/update", UpdateHandler)
 
 	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 	http.ListenAndServe(":"+port, mux)
 	// http.ListenAndServe(":8080", mux)
 }

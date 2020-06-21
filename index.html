@@ -23,7 +23,7 @@
     <meta property="twitter:url" content="https://bookshelf007.herokuapp.com/">
     <meta property="twitter:title" content="BookShelf by Anubhav Singhal">
     <meta property="twitter:description" content="Create your personal bookshelf, a track record of books you read, and what you love about those books.">
-    <meta property="twitter:image" content="#">
+    <meta property="twitter:image" content="">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
@@ -86,21 +86,21 @@
                 <form action="/submit" method="GET">
                     <div class="field">
                         <div class="columns">
-                            <div class="column is-6">
-                                <label class="label">Book-Name</label>
+                            <div class="column is-12">
+                                <label class="label">Book-Name :</label>
                                 <div class="control ">
                                     <input class="input is-rounded" type="text" placeholder="e.g Pitch Anything" name="name" required>
                                 </div>
                             </div>
-                            <div class="column is-6">
-                                <label class="label">Written by</label>
+                            <div class="column is-12">
+                                <label class="label">Written by :</label>
                                 <div class="control">
                                     <input class="input is-rounded" type="text" placeholder="e.g. Oren Klaff" name="author" required>
                                 </div>
                             </div>
                             <div class="column is-12">
                                 <div class="field">
-                                    <label class="label">Why you love this book?</label>
+                                    <label class="label">Something about the book :</label>
                                     <div class="control">
                                         <input class="input is-rounded" placeholder="It teaches how human brain reacts to any information is presendted to them" name="content" required>
                                     </input>
@@ -140,12 +140,15 @@
                         </p>
                     </div>
                     <div class="book-footer">
-                        <p>
-                            <div class="book-footer-item"> <a href="/update?name={{ .Name }}&fav={{ .Favo }}&del=0">
-                                {{if eq .Favo 1}} Marked as favourite
-                                {{else }} Mark as favourite {{end}} </a></div>
-                            <div class="book-footer-item"> <a href="/update?name={{ .Name }}&fav={{ .Favo }}&del=1">Delete</a> </div>
-                        </p>
+                        <div class="book-footer-item">
+                            <a class="card-button" href="/update?name={{ .Name }}&fav={{ .Favo }}&del=0">
+                            {{if eq .Favo 1}} Marked as favourite
+                            {{else }} Mark as favourite {{end}} 
+                            </a>
+                        </div>
+                        <div class="book-footer-item"> 
+                            <a class="card-button" href="/update?name={{ .Name }}&fav={{ .Favo }}&del=1">Delete</a> 
+                        </div>
                     </div>
                 </div>
             </div>
