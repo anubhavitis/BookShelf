@@ -127,9 +127,6 @@ a.navbar-item:hover {
 }
 
 body {
-	/* background-image: url("../assets/b01.jpeg");
-	background-size: cover;
-	background-attachment: fixed; */
 	background-color: #c7d3d4ff;
 }
 ::placeholder {

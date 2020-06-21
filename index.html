@@ -34,54 +34,53 @@
 
 <body>
     <div class="myfavdiv">
-        <div class="container">
-            <nav class="navbar" role="navigation" aria-label="main navigation">
-                <div class="navbar-brand">
-                    <a class="navbar-item" href="/">
-                        <i class="fas fa-book-reader fa-3x"></i>
-                        <p class="text_brand" >BOOKSHELF</p>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                    <i class="fas fa-book-reader fa-3x"></i>
+                    <p class="text_brand" >BOOKSHELF</p>
+                </a>
+
+                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                    data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="navbarBasicExample" class="navbar-menu">
+                <!-- <div class="navbar-start">
+                    <a class="navbar-item text">
+                        Home
                     </a>
 
-                    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-                        data-target="navbarBasicExample">
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
-                        <span aria-hidden="true"></span>
+                    <a class="navbar-item text">
+                        Documentation
                     </a>
-                </div>
+                </div> -->
 
-                <div id="navbarBasicExample" class="navbar-menu">
-                    <!-- <div class="navbar-start">
-                        <a class="navbar-item text">
-                            Home
-                        </a>
-
-                        <a class="navbar-item text">
-                            Documentation
-                        </a>
-                    </div> -->
-
-                    <div class="navbar-end">
-                        <div class="navbar-item">
-                            <div class="buttons">
-                                <a class="button is-primary" href="#">
-                                    <i class="far fa-minus-square fa-2x"></i>
-                                    <strong>Logout</strong>
-                                </a>
-                            </div>
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-primary" href="#">
+                                <i class="far fa-minus-square fa-2x"></i>
+                                <strong>Logout</strong>
+                            </a>
                         </div>
-                        <div class="navbar-item">
-                            <div class="buttons">
-                                <a class="button is-primary" href="https://github.com/anubhavitis/BookShelf">
-                                    <i class="fab fa-github-square fa-2x"></i>
-                                    <strong>Github repo</strong>
-                                </a>
-                            </div>
+                    </div>
+                    <div class="navbar-item">
+                        <div class="buttons">
+                            <a class="button is-primary" href="https://github.com/anubhavitis/BookShelf">
+                                <i class="fab fa-github-square fa-2x"></i>
+                                <strong>Github repo</strong>
+                            </a>
                         </div>
                     </div>
                 </div>
-            </nav>
-
+            </div>
+        </nav>
+        <div class="container">
             <section class="section">
                 <form action="/submit" method="GET">
                     <div class="field">
