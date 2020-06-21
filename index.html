@@ -5,7 +5,26 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BookShelf</title>
+
+    <!-- Primary Meta Tags -->
+    <title>BookShelf by Anubhav Singhal</title>
+    <meta name="title" content="BookShelf by Anubhav Singhal">
+    <meta name="description" content="Create your personal bookshelf, a track record of books you read, and what you love about those books.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bookshelf007.herokuapp.com/">
+    <meta property="og:title" content="BookShelf by Anubhav Singhal">
+    <meta property="og:description" content="Create your personal bookshelf, a track record of books you read, and what you love about those books.">
+    <meta property="og:image" content="">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://bookshelf007.herokuapp.com/">
+    <meta property="twitter:title" content="BookShelf by Anubhav Singhal">
+    <meta property="twitter:description" content="Create your personal bookshelf, a track record of books you read, and what you love about those books.">
+    <meta property="twitter:image" content= url("/assets/b02.jpg")>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
         integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
@@ -13,7 +32,7 @@
 
 </head>
 
-<body class="mybody">
+<body>
     <div class="myfavdiv">
         <div class="container">
             <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -45,19 +64,19 @@
                     <div class="navbar-end">
                         <div class="navbar-item">
                             <div class="buttons">
+                                <a class="button is-primary" href="#">
+                                    <i class="far fa-minus-square fa-2x"></i>
+                                    <strong>Logout</strong>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="navbar-item">
+                            <div class="buttons">
                                 <a class="button is-primary" href="https://github.com/anubhavitis/BookShelf">
                                     <i class="fab fa-github-square fa-2x"></i>
                                     <strong>Github repo</strong>
                                 </a>
                             </div>
-                            <!-- <div class="buttons">
-                                <a class="button is-primary">
-                                    <strong>Sign up</strong>
-                                </a>
-                                <a class="button is-light">
-                                    <strong>Log in</strong>
-                                </a>
-                            </div> -->
                         </div>
                     </div>
                 </div>
