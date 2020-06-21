@@ -7,7 +7,8 @@
 	margin-top: 10px;
 }
 .navbar {
-	background-color: transparent;
+	background-color: rgb(211, 227, 230);
+	padding: 5px;
 }
 .column {
 	padding: 10px !important;
@@ -126,9 +127,6 @@ a.navbar-item:hover {
 	padding-right: 10px;
 }
 
-body {
-	background-color: #c7d3d4ff;
-}
 ::placeholder {
 	/* color: #7b2cbf; */
 	opacity: 1;
@@ -142,4 +140,11 @@ body {
 }
 .card-button:hover {
 	color: #ffffff;
+}
+
+.form-div,
+.card-div {
+	background-color: rgb(211, 227, 230);
+	margin: 10px;
+	padding: 10px;
 }
