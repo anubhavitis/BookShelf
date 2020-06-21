@@ -7,7 +7,6 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	"os"
 	"strconv"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -26,7 +25,7 @@ type Book struct {
 }
 
 func initDb() {
-	dab, err := sql.Open("mysql", "zeddie:1234567890@(127.0.0.1:3306)/mysql?parseTime=true")
+	dab, err := sql.Open("mysql", "sql12349917:VEDK9mPCkq@(sql12.freemysqlhosting.net)/sql12349917?parseTime=true")
 	if err != nil {
 		fmt.Println("Error at opening database")
 		log.Fatal(err)
@@ -182,7 +181,7 @@ func main() {
 	mux.HandleFunc("/submit", SubmitHandler)
 	mux.HandleFunc("/update", UpdateHandler)
 
-	port := os.Getenv("PORT")
-	http.ListenAndServe(":"+port, mux)
-	// http.ListenAndServe(":8080", mux)
+	// port := os.Getenv("PORT")
+	// http.ListenAndServe(":"+port, mux)
+	http.ListenAndServe(":8080", mux)
 }
