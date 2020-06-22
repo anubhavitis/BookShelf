@@ -156,9 +156,12 @@ a.navbar-item:hover {
 	width: 100%;
 	justify-content: space-between;
 	justify-items: center;
-	padding: 10px;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-left: 10px;
 }
 .card-footer-content {
+	padding: 10px;
   color: #3e0079; !important;
   font-weight: 500;
   box-shadow:1px 1px 1px #7d3db9 ;
