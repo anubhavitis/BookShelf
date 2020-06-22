@@ -129,7 +129,7 @@
                         <div class="card-content">
                             <div class="content">
                                 <div>
-                                    <p class="card-content-header center"> <strong>Book by:</strong>{{.Author}}</p>
+                                    <p class="card-content-header center"> <strong>Book by: </strong>{{.Author}}</p>
                                 </div>
                                 <div>
                                     <p class="card-content-body center"> {{ .Content }}</p>
@@ -139,12 +139,12 @@
                         <div class="card-footer">
                             <div class="card-footer-link">
                                 <a href="/update?name={{ .Name }}&fav={{ .Favo }}&del=0"
-                                    class="card-footer-item">{{if eq .Favo 1}} Marked as favourite
+                                    class="card-footer-content">{{if eq .Favo 1}} Marked as favourite
                                     {{else }} Mark as favourite {{end}}</a>
                             </div>
                             <div class="card-footer-link">
                                 <a href="/update?name={{ .Name }}&fav={{ .Favo }}&del=1"
-                                    class="card-footer-item">Delete</a>
+                                    class="card-footer-content">Delete</a>
                             </div>
                         </div>
                     </div>
