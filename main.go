@@ -14,6 +14,7 @@ import (
 )
 
 var tpl = template.Must(template.ParseFiles("index.html"))
+var tpl0 = template.Must(template.ParseFiles("login.html"))
 var db *sql.DB
 var priBooks = make(map[string]Book)
 
