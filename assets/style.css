@@ -156,27 +156,29 @@ a.navbar-item:hover {
 	width: 100%;
 	justify-content: space-between;
 	justify-items: center;
-	padding-top: 10px;
-	padding-right: 10px;
-	padding-left: 10px;
+	padding:10px;
 }
 .card-footer-content {
 	padding: 10px;
   color: #3e0079; !important;
   font-weight: 500;
-  box-shadow:1px 1px 1px #7d3db9 ;
+  box-shadow:1px 2px 1px #7d3db9 ;
   border-radius: 20px;
 }
-.card-footer-link{
-	width: 50%;
-	padding: 10px;
+.card-footer-link1,.card-footer-link2{
 	align-content: center;
 	text-align: center;
+}
+.card-footer-link1{
+	width:60%;
+}
+.card-footer-link2{
+	width:40%;
 }
 .card-footer-content:hover{
 	background-color:#7d3db9;
 	color: #ffffff;
-  box-shadow:1px 1px 1px #7d3db9 ;
+  box-shadow:1px 1px 1px #442164 ;
 }
 .center{
 	text-align: center;

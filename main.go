@@ -13,8 +13,8 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var tpl = template.Must(template.ParseFiles("index.html"))
-var tpl0 = template.Must(template.ParseFiles("login.html"))
+var tpl = template.Must(template.ParseFiles("welcome.html"))
+var tpl0 = template.Must(template.ParseFiles("index.html"))
 var db *sql.DB
 var priBooks = make(map[string]Book)
 
