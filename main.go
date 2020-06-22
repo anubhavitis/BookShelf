@@ -87,6 +87,11 @@ func IndexHandler(w http.ResponseWriter, req *http.Request) {
 	tpl.Execute(w, books)
 }
 
+//LoginHandler function
+func LoginHandler(w http.ResponseWriter, req *http.Request) {
+	tpl0.Execute(w, nil)
+}
+
 //SubmitHandler function
 func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 	u, err := url.Parse(req.URL.String())
@@ -182,6 +187,7 @@ func main() {
 	mux.HandleFunc("/", IndexHandler)
 	mux.HandleFunc("/submit", SubmitHandler)
 	mux.HandleFunc("/update", UpdateHandler)
+	mux.HandleFunc("/Welcome", LoginHandler)
 
 	port := os.Getenv("PORT")
 	if port == "" {
