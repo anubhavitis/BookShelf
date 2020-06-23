@@ -305,15 +305,17 @@ a.navbar-item:hover {
   color: #fff;
   border-radius: 20px;
 }
-.fas {
-  color: #7b2cbf;
-}
-
 .text {
   text-shadow: 0.5px 0.5px 0.5px #c77dff;
   color: #3c096c;
   font-size: 20px;
   font-weight: 400;
+}
+.button_brand {
+  color: #ffffff;
+}
+.logo_brand{
+    color: #7b2cbf;
 }
 .text_brand {
   text-shadow: 1px 1px 1px #3c096c;

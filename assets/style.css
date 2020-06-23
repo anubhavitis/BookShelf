@@ -56,8 +56,11 @@
   color: #fff;
   border-radius: 20px;
 }
-.fas {
-  color: #7b2cbf;
+.button_icon {
+  color: #ffffff;
+}
+.logo_brand{
+    color: #7b2cbf;
 }
 .fab{
 text-shadow: 1px 1px 1px #3c096c;
