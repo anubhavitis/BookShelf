@@ -14,6 +14,9 @@ import (
 	// "github.com/anubhavitis/BookShelf/auth" 
 	"github.com/anubhavitis/BookShelf/database"
 
+	_ "auth/auth.go"
+	_ "database/database"
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -194,8 +197,10 @@ func SignUp(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
+
 	db = database.InitDb()
 	database.NewTable(db)
+
 
 	mux := http.NewServeMux()
 	assets := http.FileServer(http.Dir("assets"))
