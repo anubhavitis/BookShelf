@@ -9,9 +9,10 @@ import (
 	"net/url"
 	"os"
 	"strconv"
-
-	_ "auth/auth.go"
-	_ "database/database"
+	
+    // auth package import is commented because auth is not used anywhere in the file
+	// "github.com/anubhavitis/BookShelf/auth" 
+	"github.com/anubhavitis/BookShelf/database"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -193,8 +194,8 @@ func SignUp(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	db = initDb()
-	db.newTable()
+	db = database.InitDb()
+	database.NewTable(db)
 
 	mux := http.NewServeMux()
 	assets := http.FileServer(http.Dir("assets"))

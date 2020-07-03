@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-func initDb() *sql.DB {
+func InitDb() *sql.DB {
 	dab, err := sql.Open("mysql", "sql12349917:VEDK9mPCkq@(sql12.freemysqlhosting.net)/sql12349917?parseTime=true")
 	if err != nil {
 		fmt.Println("Error at opening database")
@@ -19,7 +19,7 @@ func initDb() *sql.DB {
 	return dab
 }
 
-func (db *sql.DB) newTable() {
+func NewTable(db *sql.DB) {
 
 	if _, err := db.Exec("DROP TABLE mybooks"); err != nil {
 		log.Fatal(err)
