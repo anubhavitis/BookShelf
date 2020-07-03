@@ -10,6 +10,9 @@ import (
 	"os"
 	"strconv"
 
+	_ "auth/auth.go"
+	_ "database/database"
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -17,6 +20,7 @@ var tpl = template.Must(template.ParseFiles("welcome.html"))
 var tpl0 = template.Must(template.ParseFiles("index.html"))
 var db *sql.DB
 var priBooks = make(map[string]Book)
+var priMember = make(map[string]Member)
 
 //Book structure
 type Book struct {
@@ -26,38 +30,11 @@ type Book struct {
 	Favo    int
 }
 
-func initDb() {
-	dab, err := sql.Open("mysql", "sql12349917:VEDK9mPCkq@(sql12.freemysqlhosting.net)/sql12349917?parseTime=true")
-	if err != nil {
-		fmt.Println("Error at opening database")
-		log.Fatal(err)
-	}
-	if err := dab.Ping(); err != nil {
-		fmt.Println("Error at ping.")
-		log.Fatal(err)
-	}
-	db = dab
-}
-
-func newTable() {
-
-	if _, err := db.Exec("DROP TABLE mybooks"); err != nil {
-		log.Fatal(err)
-	}
-
-	query := `
-	CREATE TABLE mybooks(
-		id INT AUTO_INCREMENT,
-		name TEXT NOT NULL,
-		author TEXT NOT NULL,
-		content TEXT NOT NULL,
-		favo INT,
-		PRIMARY KEY (id)
-	);`
-	if _, err := db.Exec(query); err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("New Table Created!")
+//Member stuct for registered users
+type Member struct {
+	Name     string
+	Email    string
+	Password string
 }
 
 //ReadBooks read all books and stores it in the map books
@@ -124,7 +101,7 @@ func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	query := ` INSERT INTO mybooks (name, author, content, favo) VALUES (?,?,?,?)`
+	query := ` INSERT INTO mybooks (name, author, content, favo) VALUES (?,?,?,?,?)`
 	if _, e := db.Exec(query, newBook.Name, newBook.Author, newBook.Content, newBook.Favo); e != nil {
 		log.Fatal(err)
 	}
@@ -176,9 +153,48 @@ func UpdateHandler(w http.ResponseWriter, req *http.Request) {
 	}
 
 }
+
+// //SignIn func to for new session auth
+// func SignIn(w http.ResponseWriter, req *http.ResponseWriter) {
+// 	u,e:=url.Parse(req.URL.String())
+// 	if()
+// }
+
+//SignUp func to handle new registration.
+func SignUp(w http.ResponseWriter, req *http.Request) {
+	u, e := url.Parse(req.URL.String())
+	if e != nil {
+		log.Fatal(e)
+		return
+	}
+	params := u.Query()
+	var newM Member
+	newM.Name = params.Get("name")
+	newM.Email = params.Get("email")
+	newM.Password = params.Get("password")
+	if priMember[newM.Email].Email == newM.Email {
+		fmt.Println("User Already Exists")
+		if e := tpl0.Execute(w, nil); e != nil {
+			log.Fatal(e)
+		}
+		return
+	}
+
+	q := ` INSERT INTO members (name, email, password) VALUES (?,?,?)`
+	if _, e := db.Exec(q, newM.Name, newM.Email, newM.Password); e != nil {
+		fmt.Println("Upating database error!")
+		log.Fatal(e)
+	}
+	priMember[newM.Email] = newM
+	books := ReadBooks()
+	if e := tpl.Execute(w, books); e != nil {
+		log.Fatal(e)
+	}
+}
+
 func main() {
-	initDb()
-	newTable()
+	db = initDb()
+	db.newTable()
 
 	mux := http.NewServeMux()
 	assets := http.FileServer(http.Dir("assets"))
@@ -188,6 +204,8 @@ func main() {
 	mux.HandleFunc("/submit", SubmitHandler)
 	mux.HandleFunc("/update", UpdateHandler)
 	mux.HandleFunc("/Welcome", LoginHandler)
+	// mux.HandleFunc("/signin", SignIn)
+	mux.HandleFunc("/signup", SignUp)
 
 	port := os.Getenv("PORT")
 	if port == "" {

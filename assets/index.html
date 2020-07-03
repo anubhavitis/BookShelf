@@ -31,7 +31,7 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" />
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
 		integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous" />
-	<link rel="stylesheet" href="assets/stylelogin.css" />
+	<link rel="stylesheet" href="stylelogin.css" />
 </head>
 
 <body>
@@ -65,20 +65,20 @@
 	</nav>
 	<div class="" id="container">
 		<div class="form-container sign-up-container">
-			<form action="#">
+			<form action="/signup" method="GET">
 				<h1 class="is-size-5">Create Account</h1>
 				<input class="input is-rounded" type="text" placeholder="Name" />
 				<input class="input is-rounded" type="email" placeholder="Email" />
 				<input class="input is-rounded" type="password" placeholder="Password" />
-				<button>Sign Up</button>
+				<button type="signup">Sign Up</button>
 			</form>
 		</div>
 		<div class="form-container sign-in-container">
-			<form action="#">
+			<form action="/signin" method="GET">
 				<h1 class="is-size-5">Welcome Back!</h1>
 				<input class="input is-rounded" type="email" placeholder="Email" />
 				<input class="input is-rounded" type="password" placeholder="Password" />
-				<button>Sign In</button>
+				<button type="signin">Sign In</button>
 			</form>
 		</div>
 		<div class="overlay-container">
