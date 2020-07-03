@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Primary Meta Tags -->
+    <title>BookShelf by Anubhav Singhal</title>
+    <meta name="title" content="BookShelf by Anubhav Singhal">
+    <meta name="description"
+        content="Create your personal bookshelf, a track record of books you read, and what you love about those books.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bookshelf007.herokuapp.com/">
+    <meta property="og:title" content="BookShelf by Anubhav Singhal">
+    <meta property="og:description"
+        content="Create your personal bookshelf, a track record of books you read, and what you love about those books.">
+    <meta property="og:image" content="">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://bookshelf007.herokuapp.com/">
+    <meta property="twitter:title" content="BookShelf by Anubhav Singhal">
+    <meta property="twitter:description"
+        content="Create your personal bookshelf, a track record of books you read, and what you love about those books.">
+    <meta property="twitter:image" content="">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+        integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                <i class="fas fa-book-reader fa-3x logo_brand"></i>
+                <p class="text_brand">BOOKSHELF</p>
+            </a>
+
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary" href="/Welcome">
+                            <i class="fas fa-minus-circle fa-2x button_icon"></i>
+                            <strong>Logout</strong>
+                        </a>
+                    </div>
+                </div>
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-primary" href="https://github.com/anubhavitis/BookShelf">
+                            <i class="fab fa-github fa-2x button_icon"></i>
+                            <strong>Github repo</strong>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="form-div">
+        <div class="container">
+            <!-- <section class="section"> -->
+            <form action="/submit" method="GET">
+                <div class="field">
+                    <div class="columns">
+                        <div class="column is-12">
+                            <label class="label">Book-Name</label>
+                            <div class="control ">
+                                <input class="input is-rounded" type="text" placeholder="e.g Pitch Anything" name="name"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="column is-12">
+                            <label class="label">Written by</label>
+                            <div class="control">
+                                <input class="input is-rounded" type="text" placeholder="e.g. Oren Klaff" name="author"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="column is-12">
+                            <div class="field">
+                                <label class="label">Something about the book</label>
+                                <div class="control">
+                                    <input class="input is-rounded"
+                                        placeholder="It teaches how human brain reacts to any information is presendted to them"
+                                        name="content" required>
+                                    </input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button class="button is-primary" type="submit"><strong>Submit</strong></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- </section> -->
+        </div>
+    </div>
+    <div class="card-div">
+        <div class="container">
+            <div class="columns">
+                <!-- My card template for the edit. -->
+                {{ range . }}
+                <div class="column is-4">
+                    <div class="card has-text-grey-lighter">
+                        <header class="card-header">
+                            <div class="content">
+                                <p class="card-header-title center">{{ .Name }}</p>
+                            </div>
+                        </header>
+                        <div class="card-content">
+                            <div class="content">
+                                <div>
+                                    <p class="card-content-header center"> <strong>Book by: </strong>{{.Author}}</p>
+                                </div>
+                                <div>
+                                    <p class="card-content-body center"> {{ .Content }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="card-footer-link1">
+                                <a href="/update?name={{ .Name }}&fav={{ .Favo }}&del=0"
+                                    class="card-footer-content">{{if eq .Favo 1}} Marked as favourite
+                                    {{else }} Mark as favourite {{end}}</a>
+                            </div>
+                            <div class="card-footer-link2">
+                                <a href="/update?name={{ .Name }}&fav={{ .Favo }}&del=1"
+                                    class="card-footer-content">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{end}}
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p class="has-text-centered has-text-weight-bold"> Made with ❤️ for all passionate readers!</p>
+    </footer>
+    <script>
+        (function () {
+            var burger = document.querySelector('.burger');
+            var menu = document.querySelector('#' + burger.dataset.target);
+            burger.addEventListener('click', function () {
+                burger.classList.toggle('is-active');
+                menu.classList.toggle('is-active');
+            });
+        })();
+    </script>
+</body>
+
+</html>

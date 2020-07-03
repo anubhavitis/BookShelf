@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<!-- Primary Meta Tags -->
+	<title>BookShelf by Anubhav Singhal</title>
+	<meta name="title" content="BookShelf by Anubhav Singhal" />
+	<meta name="description"
+		content="Create your personal bookshelf, a track record of books you read, and what you love about those books." />
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://bookshelf007.herokuapp.com/" />
+	<meta property="og:title" content="BookShelf by Anubhav Singhal" />
+	<meta property="og:description"
+		content="Create your personal bookshelf, a track record of books you read, and what you love about those books." />
+	<meta property="og:image" content="" />
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image" />
+	<meta property="twitter:url" content="https://bookshelf007.herokuapp.com/" />
+	<meta property="twitter:title" content="BookShelf by Anubhav Singhal" />
+	<meta property="twitter:description"
+		content="Create your personal bookshelf, a track record of books you read, and what you love about those books." />
+	<meta property="twitter:image" content="" />
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"
+		integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous" />
+	<link rel="stylesheet" href="stylelogin.css" />
+</head>
+
+<body>
+	<nav class="navbar" role="navigation" aria-label="main navigation">
+		<div class="navbar-brand">
+			<a class="navbar-item" href="/">
+				<i class="fas fa-book-reader fa-3x logo_brand"></i>
+				<p class="text_brand">BOOKSHELF</p>
+			</a>
+
+			<a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+				data-target="navbarBasicExample">
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+				<span aria-hidden="true"></span>
+			</a>
+		</div>
+
+		<div id="navbarBasicExample" class="navbar-menu">
+			<div class="navbar-end">
+				<div class="navbar-item">
+					<div class="buttons">
+						<a class="button is-primary" href="https://github.com/anubhavitis/BookShelf">
+							<i class="fab fa-github fa-2x button_icon"></i>
+							<strong>Github repo</strong>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<div class="" id="container">
+		<div class="form-container sign-up-container">
+			<form action="/signup" method="GET">
+				<h1 class="is-size-5">Create Account</h1>
+				<input class="input is-rounded" type="text" placeholder="Name" />
+				<input class="input is-rounded" type="email" placeholder="Email" />
+				<input class="input is-rounded" type="password" placeholder="Password" />
+				<button type="signup">Sign Up</button>
+			</form>
+		</div>
+		<div class="form-container sign-in-container">
+			<form action="/signin" method="GET">
+				<h1 class="is-size-5">Welcome Back!</h1>
+				<input class="input is-rounded" type="email" placeholder="Email" />
+				<input class="input is-rounded" type="password" placeholder="Password" />
+				<button type="signin">Sign In</button>
+			</form>
+		</div>
+		<div class="overlay-container">
+			<div class="overlay">
+				<div class="overlay-panel overlay-left">
+					<h1 class="is-size-5">Already signed up?</h1>
+					<p class="form-p">
+						Just login with your personal info.
+					</p>
+					<button class="ghost" id="signIn">
+						Click here!
+					</button>
+				</div>
+				<div class="overlay-panel overlay-right">
+					<h1 class="is-size-5">Hello, Are you new here?</h1>
+					<p class="form-p">
+						Tell us about yourself, and register to our platform!
+					</p>
+					<button class="ghost" id="signUp">Click here!</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<p class="has-text-centered has-text-weight-bold"> Made with ❤️ for all passionate readers!</p>
+	</footer>
+	<script src="assets/script.js"></script>
+	<script>
+		(function () {
+			var burger = document.querySelector(".burger");
+			var menu = document.querySelector("#" + burger.dataset.target);
+			burger.addEventListener("click", function () {
+				burger.classList.toggle("is-active");
+				menu.classList.toggle("is-active");
+			});
+		})();
+	</script>
+</body>
+
+</html>
