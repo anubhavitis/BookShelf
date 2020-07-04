@@ -10,8 +10,7 @@ import (
 	"os"
 	"strconv"
 
-	// auth package import is commented because auth is not used anywhere in the file
-	// "github.com/anubhavitis/BookShelf/auth"
+	"github.com/anubhavitis/BookShelf/auth"
 	"github.com/anubhavitis/BookShelf/database"
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -23,8 +22,14 @@ var db *sql.DB
 //IndexHandler function
 func IndexHandler(w http.ResponseWriter, req *http.Request) {
 	fmt.Println("Home is reached.")
-	books := database.ReadBooks(db)
-	tpl.Execute(w, books)
+	// books := database.ReadBooks(db)
+	cval,err := auth.ReadCookie(w,req)
+	if err!=nil{
+		fmt.Println("Error while reading Cookie")
+		return
+	}
+	fmt.Println("the Cookie value:",cval)
+	tplauth.Execute(w, nil)
 }
 
 //LoginHandler function
