@@ -97,7 +97,7 @@ func DeleteCookie(w http.ResponseWriter) {
 }
 
 //ReadCookie ..
-func ReadCookie(r *http.Request) (map[string]string, error) {
+func ReadCookie(w http.ResponseWriter, r *http.Request) (map[string]string, error) {
 	if cookie, err := r.Cookie("mycookie"); err == nil {
 		val := make(map[string]string)
 		if err = CookieHandler.Decode("mycookie", cookie.Value, &val); err == nil {
