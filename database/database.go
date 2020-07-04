@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"github.com/google/uuid"
 )
 
 //Member stuct for registered users
@@ -11,6 +12,11 @@ type Member struct {
 	Name     string
 	Email    string
 	Password string
+}
+
+func generateUUId(){
+	v,_:=uuid.NewUUID()
+	fmt.Print(v)
 }
 
 //PriBooks ..
