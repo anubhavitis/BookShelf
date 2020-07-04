@@ -29,6 +29,9 @@ func IndexHandler(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 	fmt.Println("the Cookie value:",cval)
+	if auth.CheckSession(cval["sessionID"],req)!=true{
+		fmt.Println("Error")
+	}
 	tplauth.Execute(w, nil)
 }
 
@@ -83,6 +86,7 @@ func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 
 //UpdateHandler function
 func UpdateHandler(w http.ResponseWriter, req *http.Request) {
+
 	u, err := url.Parse(req.URL.String())
 	if err != nil {
 		log.Fatal(err)
