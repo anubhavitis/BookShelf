@@ -13,61 +13,25 @@ import (
     // auth package import is commented because auth is not used anywhere in the file
 	// "github.com/anubhavitis/BookShelf/auth" 
 	"github.com/anubhavitis/BookShelf/database"
-
 	_ "github.com/go-sql-driver/mysql"
 )
 
 var tpl = template.Must(template.ParseFiles("welcome.html"))
-var tpl0 = template.Must(template.ParseFiles("index.html"))
+var tplauth = template.Must(template.ParseFiles("index.html"))
 var db *sql.DB
-var priBooks = make(map[string]Book)
-var priMember = make(map[string]Member)
 
-//Book structure
-type Book struct {
-	Name    string
-	Author  string
-	Content string
-	Favo    int
-}
 
-//Member stuct for registered users
-type Member struct {
-	Name     string
-	Email    string
-	Password string
-}
-
-//ReadBooks read all books and stores it in the map books
-func ReadBooks() []Book {
-	var books []Book
-	rows, er := db.Query(`SELECT name,author,content,favo FROM mybooks`)
-	if er != nil {
-		log.Fatal(er)
-	}
-	defer rows.Close()
-
-	for rows.Next() {
-		var temp Book
-		if err := rows.Scan(&temp.Name, &temp.Author, &temp.Content, &temp.Favo); err != nil {
-			log.Fatal(err)
-		}
-		books = append(books, temp)
-		priBooks[temp.Name] = temp
-	}
-	return books
-}
 
 //IndexHandler function
 func IndexHandler(w http.ResponseWriter, req *http.Request) {
 	fmt.Println("Home is reached.")
-	books := ReadBooks()
+	books := database.ReadBooks(db)
 	tpl.Execute(w, books)
 }
 
 //LoginHandler function
 func LoginHandler(w http.ResponseWriter, req *http.Request) {
-	tpl0.Execute(w, nil)
+	tplauth.Execute(w, nil)
 }
 
 //SubmitHandler function
@@ -79,13 +43,13 @@ func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	books := ReadBooks()
+	books := database.ReadBooks(db)
 	fmt.Println("Current database")
 	for x := range books {
 		fmt.Println(books[x].Name, books[x].Author, books[x].Content, books[x].Favo)
 	}
 	params := u.Query()
-	newBook := &Book{}
+	newBook := &database.Book{}
 	newBook.Name = params.Get("name")
 	newBook.Author = params.Get("author")
 	newBook.Content = params.Get("content")
@@ -93,7 +57,7 @@ func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 	fmt.Println("Book read", newBook.Name)
 
 	//If Book is already present
-	if priBooks[newBook.Name].Name == newBook.Name {
+	if database.PriBooks[newBook.Name].Name == newBook.Name {
 		fmt.Println("Book already exists in the record.")
 		if err := tpl.Execute(w, books); err != nil {
 			fmt.Println("Error here at executing template.")
@@ -144,9 +108,9 @@ func UpdateHandler(w http.ResponseWriter, req *http.Request) {
 			fmt.Println("Upating database error!")
 			log.Fatal(e)
 		}
-		delete(priBooks, name)
+		delete(database.PriBooks, name)
 	}
-	books := ReadBooks()
+	books := database.ReadBooks(db)
 
 	if e := tpl.Execute(w, books); e != nil {
 		fmt.Println("Error here at executing template.")
@@ -155,42 +119,14 @@ func UpdateHandler(w http.ResponseWriter, req *http.Request) {
 
 }
 
-// //SignIn func to for new session auth
-// func SignIn(w http.ResponseWriter, req *http.ResponseWriter) {
-// 	u,e:=url.Parse(req.URL.String())
-// 	if()
-// }
+//SignIn func to for new session auth
+func SignIn(w http.ResponseWriter, req *http.Request) {
+return
+}
 
 //SignUp func to handle new registration.
 func SignUp(w http.ResponseWriter, req *http.Request) {
-	u, e := url.Parse(req.URL.String())
-	if e != nil {
-		log.Fatal(e)
-		return
-	}
-	params := u.Query()
-	var newM Member
-	newM.Name = params.Get("name")
-	newM.Email = params.Get("email")
-	newM.Password = params.Get("password")
-	if priMember[newM.Email].Email == newM.Email {
-		fmt.Println("User Already Exists")
-		if e := tpl0.Execute(w, nil); e != nil {
-			log.Fatal(e)
-		}
-		return
-	}
-
-	q := ` INSERT INTO members (name, email, password) VALUES (?,?,?)`
-	if _, e := db.Exec(q, newM.Name, newM.Email, newM.Password); e != nil {
-		fmt.Println("Upating database error!")
-		log.Fatal(e)
-	}
-	priMember[newM.Email] = newM
-	books := ReadBooks()
-	if e := tpl.Execute(w, books); e != nil {
-		log.Fatal(e)
-	}
+return
 }
 
 func main() {
@@ -205,7 +141,7 @@ func main() {
 	mux.HandleFunc("/submit", SubmitHandler)
 	mux.HandleFunc("/update", UpdateHandler)
 	mux.HandleFunc("/Welcome", LoginHandler)
-	// mux.HandleFunc("/signin", SignIn)
+	mux.HandleFunc("/signin", SignIn)
 	mux.HandleFunc("/signup", SignUp)
 
 	port := os.Getenv("PORT")

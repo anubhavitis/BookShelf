@@ -9,14 +9,21 @@ import (
 	"github.com/gorilla/sessions"
 )
 
-var hashKey = securecookie.GenerateRandomKey(32)
-var blockKey = securecookie.GenerateRandomKey(32)
-var cookieHandler = securecookie.New(hashKey, blockKey)
-var sessionStore = sessions.NewFilesystemStore("/tmp", hashKey)
+//HashKey ..
+var HashKey = securecookie.GenerateRandomKey(32)
+
+//BlockKey ..
+var BlockKey = securecookie.GenerateRandomKey(32)
+
+//CookieHandler ...
+var CookieHandler = securecookie.New(HashKey, BlockKey)
+
+//SessionStore ...
+var SessionStore = sessions.NewFilesystemStore("/tmp", HashKey)
 
 //CreateSession ..
 func CreateSession(name string, sID string, w http.ResponseWriter, r *http.Request) error {
-	session, err := sessionStore.Get(r, "Allsessions")
+	session, err := SessionStore.Get(r, "Allsessions")
 	if err != nil {
 		fmt.Println(err)
 		log.Fatal()
@@ -35,7 +42,7 @@ func CreateSession(name string, sID string, w http.ResponseWriter, r *http.Reque
 //ClearSession ..
 func ClearSession(w http.ResponseWriter, r *http.Request) {
 
-	session, err := sessionStore.Get(r, "Allsessions")
+	session, err := SessionStore.Get(r, "Allsessions")
 	if err != nil {
 		fmt.Println(err)
 		log.Fatal()
@@ -51,7 +58,7 @@ func CreateCookie(name string, sID string, w http.ResponseWriter, r *http.Reques
 		"sessionId": sID,
 	}
 
-	if encode, err := cookieHandler.Encode("mycookie", val); err == nil {
+	if encode, err := CookieHandler.Encode("mycookie", val); err == nil {
 		cookie := &http.Cookie{
 			Name:   "mycookie",
 			Path:   "/",
@@ -81,7 +88,7 @@ func DeleteCookie(w http.ResponseWriter, r *http.Request) {
 func ReadCookie(w http.ResponseWriter, r *http.Request) (map[string]string, error) {
 	if cookie, err := r.Cookie("mycookie"); err == nil {
 		val := make(map[string]string)
-		if err = cookieHandler.Decode("mycookie", cookie.Value, &val); err == nil {
+		if err = CookieHandler.Decode("mycookie", cookie.Value, &val); err == nil {
 			return val, err
 		}
 		return nil, err
