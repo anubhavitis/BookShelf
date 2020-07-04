@@ -9,9 +9,9 @@ import (
 	"net/url"
 	"os"
 	"strconv"
-	
-    // auth package import is commented because auth is not used anywhere in the file
-	// "github.com/anubhavitis/BookShelf/auth" 
+
+	// auth package import is commented because auth is not used anywhere in the file
+	// "github.com/anubhavitis/BookShelf/auth"
 	"github.com/anubhavitis/BookShelf/database"
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -19,8 +19,6 @@ import (
 var tpl = template.Must(template.ParseFiles("welcome.html"))
 var tplauth = template.Must(template.ParseFiles("index.html"))
 var db *sql.DB
-
-
 
 //IndexHandler function
 func IndexHandler(w http.ResponseWriter, req *http.Request) {
@@ -121,12 +119,12 @@ func UpdateHandler(w http.ResponseWriter, req *http.Request) {
 
 //SignIn func to for new session auth
 func SignIn(w http.ResponseWriter, req *http.Request) {
-return
+	return
 }
 
 //SignUp func to handle new registration.
 func SignUp(w http.ResponseWriter, req *http.Request) {
-return
+	return
 }
 
 func main() {
