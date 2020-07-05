@@ -1,4 +1,4 @@
-module github.com/anubhavitis/BookShelf/auth
+module auth
 
 go 1.14
 

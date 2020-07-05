@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+
 	"github.com/google/uuid"
 )
 
@@ -14,8 +15,8 @@ type Member struct {
 	Password string
 }
 
-func generateUUId(){
-	v,_:=uuid.NewUUID()
+func generateUUId() {
+	v, _ := uuid.NewUUID()
 	fmt.Print(v)
 }
 

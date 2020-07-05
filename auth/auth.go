@@ -12,7 +12,7 @@ import (
 //HashKey ..
 var HashKey = securecookie.GenerateRandomKey(32)
 
-//BlockKey ..
+//BlockKey ..s
 var BlockKey = securecookie.GenerateRandomKey(32)
 
 //CookieHandler ...
