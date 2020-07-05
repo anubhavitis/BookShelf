@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+
 	"github.com/google/uuid"
 )
 
@@ -14,8 +15,8 @@ type Member struct {
 	Password string
 }
 
-func generateUUId(){
-	v,_:=uuid.NewUUID()
+func generateUUID() {
+	v, _ := uuid.NewUUID()
 	fmt.Print(v)
 }
 
@@ -75,8 +76,10 @@ func NewTable(db *sql.DB) {
 		name TEXT NOT NULL,
 		email TEXT NOT NULL,
 		password TEXT NOT NULL,
+		PRIMARY KEY (id)
 	);`
 	if _, err := db.Exec(query); err != nil {
+		fmt.Println("Error occured while creating table.")
 		log.Fatal(err)
 	}
 	fmt.Println("Members table Created!")

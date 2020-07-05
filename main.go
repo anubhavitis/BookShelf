@@ -15,28 +15,30 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-var tpl = template.Must(template.ParseFiles("welcome.html"))
-var tplauth = template.Must(template.ParseFiles("index.html"))
+var tpl = template.Must(template.ParseFiles("assets/welcome.html"))
+var tplauth = template.Must(template.ParseFiles("assets/index.html"))
 var db *sql.DB
 
 //IndexHandler function
 func IndexHandler(w http.ResponseWriter, req *http.Request) {
 	fmt.Println("Home is reached.")
 	// books := database.ReadBooks(db)
-	cval, err := auth.ReadCookie(w, req)
+	cval, err := auth.ReadCookie(req)
 	if err != nil {
 		fmt.Println("Error while reading Cookie")
 		return
 	}
 	fmt.Println("the Cookie value:", cval)
-	if auth.CheckSession(cval["sessionID"], req) != true {
-		fmt.Println("Error")
+
+	if auth.CheckSession(cval["sessionID"], req) == true {
+		fmt.Println("Gotcha!")
+	} else {
+		tplauth.Execute(w, nil)
 	}
-	tplauth.Execute(w, nil)
 }
 
-//LoginHandler function
-func LoginHandler(w http.ResponseWriter, req *http.Request) {
+//SignoutHandler function
+func SignoutHandler(w http.ResponseWriter, req *http.Request) {
 	tplauth.Execute(w, nil)
 }
 
@@ -52,7 +54,8 @@ func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 	books := database.ReadBooks(db)
 	fmt.Println("Current database")
 	for x := range books {
-		fmt.Println(books[x].Name, books[x].Author, books[x].Content, books[x].Favo)
+		fmt.Println(books[x].Name, books[x].Author,
+			books[x].Content, books[x].Favo)
 	}
 	params := u.Query()
 	newBook := &database.Book{}
@@ -72,8 +75,11 @@ func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	query := ` INSERT INTO mybooks (name, author, content, favo) VALUES (?,?,?,?,?)`
-	if _, e := db.Exec(query, newBook.Name, newBook.Author, newBook.Content, newBook.Favo); e != nil {
+	query := ` INSERT INTO mybooks 
+	(name, author, content, favo) 
+	VALUES (?,?,?,?,?)`
+	if _, e := db.Exec(query, newBook.Name, newBook.Author,
+		newBook.Content, newBook.Favo); e != nil {
 		log.Fatal(err)
 	}
 	books = append(books, *newBook)
@@ -128,12 +134,12 @@ func UpdateHandler(w http.ResponseWriter, req *http.Request) {
 
 //SignIn func to for new session auth
 func SignIn(w http.ResponseWriter, req *http.Request) {
-	return
+	tpl.Execute(w, nil)
 }
 
 //SignUp func to handle new registration.
 func SignUp(w http.ResponseWriter, req *http.Request) {
-	return
+	tpl.Execute(w, nil)
 }
 
 func main() {
@@ -147,7 +153,7 @@ func main() {
 	mux.HandleFunc("/", IndexHandler)
 	mux.HandleFunc("/submit", SubmitHandler)
 	mux.HandleFunc("/update", UpdateHandler)
-	mux.HandleFunc("/Welcome", LoginHandler)
+	mux.HandleFunc("/signout", SignoutHandler)
 	mux.HandleFunc("/signin", SignIn)
 	mux.HandleFunc("/signup", SignUp)
 
