@@ -70,6 +70,10 @@ func NewTable(db *sql.DB) {
 	}
 	fmt.Println("mybooks Created!")
 
+	if _, err := db.Exec("DROP TABLE members"); err != nil {
+		log.Fatal(err)
+	}
+
 	query = `
 	CREATE TABLE members(
 		id INT AUTO_INCREMENT,
