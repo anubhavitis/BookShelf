@@ -1,0 +1,314 @@
+[33mcommit 7966c9d4eb859c3c238955b26f17f00e592a4e5f[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sun Jul 5 12:55:49 2020 +0530
+
+    New Changes
+
+[33mcommit 8a7eedd67d51d6a602b0e7c93549e8da6c9390f8[m
+Author: vashish1 <vashishtiv@gmail.com>
+Date:   Sat Jul 4 14:38:50 2020 +0530
+
+    changes
+
+[33mcommit c688ccdd30bbf236a517dcf26d8870678bb4502f[m
+Merge: e4ac63e 25c4b3e
+Author: vashish1 <vashishtiv@gmail.com>
+Date:   Sat Jul 4 14:24:21 2020 +0530
+
+    changed cookie func
+
+[33mcommit e4ac63e83367ffcbe30a2ac60ce4e94544eae1d7[m
+Author: vashish1 <vashishtiv@gmail.com>
+Date:   Sat Jul 4 14:21:54 2020 +0530
+
+    skjdn
+
+[33mcommit 25c4b3e3f813822feeec48729464ea2937fb052b[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sat Jul 4 14:16:58 2020 +0530
+
+    New func issue
+
+[33mcommit 73d070294cfe5740570d3a5feb2b5c79df6a38b6[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sat Jul 4 14:04:33 2020 +0530
+
+    Idc
+
+[33mcommit ec26c0c66e629c3fecbe34531bfb1e8861e6094c[m
+Author: vashish1 <vashishtiv@gmail.com>
+Date:   Sat Jul 4 13:05:26 2020 +0530
+
+    changed mod files
+
+[33mcommit 38f1a95b55a04563651953271b891fef60ecbe44[m
+Author: vashish1 <vashishtiv@gmail.com>
+Date:   Sat Jul 4 12:37:56 2020 +0530
+
+    added mod files
+
+[33mcommit d883543a09595daa1244132482cadadd63921c1a[m
+Merge: d0743ad 58965a3
+Author: vashish1 <vashishtiv@gmail.com>
+Date:   Sat Jul 4 12:30:29 2020 +0530
+
+    solved merge conflict
+
+[33mcommit 58965a3d50fe6e72868fe545085dc887a27afc31[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sat Jul 4 12:21:02 2020 +0530
+
+    No more wills
+
+[33mcommit ec217e37396f8639de9f8e5ab6ed4a8cfd63199c[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sat Jul 4 12:16:44 2020 +0530
+
+    All goes down
+
+[33mcommit ae17d4c0d11545f14d38b28dbf75697dcd459e43[m
+Merge: e5f9ba5 0de7bd6
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Fri Jul 3 23:08:09 2020 +0530
+
+    Merge pull request #3 from vashish1/errors
+    
+    resolved errors
+
+[33mcommit 0de7bd6d05724e3f64072e25975802802abee570[m
+Merge: c57b90c e5f9ba5
+Author: Yashi Gupta <44751977+vashish1@users.noreply.github.com>
+Date:   Fri Jul 3 23:07:29 2020 +0530
+
+    Merge branch 'master' into errors
+
+[33mcommit c57b90c4650b859905a4e9596918f8ce1b97984e[m
+Author: vashish1 <vashishtiv@gmail.com>
+Date:   Fri Jul 3 23:00:53 2020 +0530
+
+    resolved errors
+
+[33mcommit d0743ad4ada1e9abbf93ed9c2cb63b43b0d42cd8[m
+Author: vashish1 <vashishtiv@gmail.com>
+Date:   Fri Jul 3 22:28:17 2020 +0530
+
+    resolved errors
+
+[33mcommit e5f9ba531da48d16374fb23aeab1479c1884d26e[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Fri Jul 3 21:46:39 2020 +0530
+
+    Whatever
+
+[33mcommit 686b5f0096a35394db29d5850b6bef0befcf0b01[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Tue Jun 23 10:12:21 2020 +0530
+
+    favicons restored
+
+[33mcommit 7deb4522176172615b81a7e616ef6d5ec296e32b[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Mon Jun 22 23:17:10 2020 +0530
+
+    SuperWow
+
+[33mcommit d6fde9ae3ad9b3f6f6b66c36e4aa1b08bc3acfd1[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Mon Jun 22 23:07:24 2020 +0530
+
+    AgainAll
+
+[33mcommit dee0abef09688478d8bb47cfb4c394214177d6a9[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Mon Jun 22 21:54:52 2020 +0530
+
+    Again2
+
+[33mcommit c11d501f2eb62da181029f4ceb0ba0c11f4f5fcb[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Mon Jun 22 21:53:08 2020 +0530
+
+    Again
+
+[33mcommit 08a03d2e71e6bcb9d0546fc422e1ce672c8a8d02[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Mon Jun 22 21:47:01 2020 +0530
+
+    FrontEnd retake
+
+[33mcommit 9ea582f989c4ec2fb198c9272806e500a3790cb5[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Mon Jun 22 14:13:38 2020 +0530
+
+    Login page
+
+[33mcommit 1fcb79a1752d900c2bd39a80f9d85c34f3c56a0b[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sun Jun 21 22:52:33 2020 +0530
+
+    front end all cool
+
+[33mcommit 4d8ef341797deee5331f2ca7f537e6588469da63[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sun Jun 21 21:53:35 2020 +0530
+
+    Navbar fixed
+
+[33mcommit 7a54796d042f94977a003477b3c597f2c68ad23d[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sun Jun 21 21:24:53 2020 +0530
+
+    Background Updated
+
+[33mcommit bcf5ebb2fb323446cd526478822bbfb197f65bfe[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sun Jun 21 18:23:54 2020 +0530
+
+    meta tags final
+
+[33mcommit 4e8bd6ab0e33e28a5b7b6d5410eec57f99d3a153[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sun Jun 21 18:21:03 2020 +0530
+
+    meta image
+
+[33mcommit 640f262d0c09109bae727accbb8b56c8ef7a3e9c[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sun Jun 21 18:18:50 2020 +0530
+
+    meta image
+
+[33mcommit 48166f8c41ebbd8632d6f88f2e0db4e0397307eb[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sun Jun 21 18:13:17 2020 +0530
+
+    meta image
+
+[33mcommit ffd1d38c26141e4d1003778837f5b2aacf985d4b[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sun Jun 21 18:08:51 2020 +0530
+
+    error
+
+[33mcommit d8c5c84ea6d37b33a171ed59bc77c632cc5a6e8f[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sun Jun 21 18:07:15 2020 +0530
+
+    error
+
+[33mcommit f664f62a66cebe9a46cd318a3ff6c773e3162d0a[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sun Jun 21 18:05:08 2020 +0530
+
+    error
+
+[33mcommit 93a35218acf5f4a7d955843097df88198f32e144[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sun Jun 21 18:01:47 2020 +0530
+
+    meta tag
+
+[33mcommit 8c5cadbc2d975391cb506a33138835ddb08314fa[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sun Jun 21 18:01:25 2020 +0530
+
+    meta tags
+
+[33mcommit 0a119b5eee47360a66857e07bbdbaacb8ecda056[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sun Jun 21 17:11:31 2020 +0530
+
+    Sql Hosting
+
+[33mcommit a66d95517a5df2d5466e01801ade0ee7eeccf67d[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sun Jun 21 17:08:54 2020 +0530
+
+    Sql Hosting
+
+[33mcommit a94315b2959095cb553d0b8bf85c63415e444f98[m
+Merge: 3317440 700241b
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sun Jun 21 14:30:55 2020 +0530
+
+    Merge pull request #2 from vashish1/changes
+    
+    Yashi edits!
+
+[33mcommit 700241be1e7b6c3f05a41d99f29fb328d67431c1[m
+Author: vashish1 <vashishtiv@gmail.com>
+Date:   Sat Jun 20 16:44:37 2020 +0530
+
+    added files
+
+[33mcommit 3317440c9fde8eeda2d8e60ece1c1dad4bf2666c[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sat Jun 20 16:28:45 2020 +0530
+
+    Logout button
+
+[33mcommit ca84a747f7c1bbc05f6a26bb3f7c7d9a8a52df96[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sat Jun 20 16:03:01 2020 +0530
+
+    ready to deploy
+
+[33mcommit ee400e16eef958a1c8afdcff369f22c56801daa3[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sat Jun 20 15:50:55 2020 +0530
+
+    delete added
+
+[33mcommit cdb9af2370ec9921e657249ee0fa7fa9bd88703e[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sat Jun 13 18:10:50 2020 +0530
+
+    FrontEnd done
+
+[33mcommit 1279f0cf3e4b59cc676a194f1129fd27cab46bed[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sat Jun 13 12:23:57 2020 +0530
+
+    dependencies
+
+[33mcommit 3a9adf3c7c3d825a04259cd533aa572b645d99aa[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sat Jun 13 12:09:07 2020 +0530
+
+    heroku commit
+
+[33mcommit dd2dcff1d2e509920b4c448ed9ec8bbb5e8b8259[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Sat Jun 13 12:05:07 2020 +0530
+
+    Cards displaying
+
+[33mcommit 2f728c3e8808ae19972a8d0aa7e4841f49621d8f[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Fri Jun 12 17:58:32 2020 +0530
+
+    form connected
+
+[33mcommit 7c968c60f2558e7a0983bd3e17e7d0fe44417a75[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Fri Jun 12 16:31:35 2020 +0530
+
+    front end almost ready
+
+[33mcommit 9cc804af404e37eed85ed71a1a3066a5df2c1db6[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Fri Jun 12 12:51:57 2020 +0530
+
+    Colors
+
+[33mcommit c4570b136788a28e1431b1f05289706f40538f47[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Thu Jun 11 18:16:23 2020 +0530
+
+    first commit
+
+[33mcommit e1d40b84e18f42bdd3dca87d23e05cb6cd7cbd85[m
+Author: Anubhav Singhal <ss.lfsgd@gmail.com>
+Date:   Thu Jun 11 18:15:22 2020 +0530
+
+    Initial commit

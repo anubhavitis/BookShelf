@@ -23,13 +23,13 @@ var db *sql.DB
 func IndexHandler(w http.ResponseWriter, req *http.Request) {
 	fmt.Println("Home is reached.")
 	// books := database.ReadBooks(db)
-	cval,err := auth.ReadCookie(w,req)
-	if err!=nil{
+	cval, err := auth.ReadCookie(w, req)
+	if err != nil {
 		fmt.Println("Error while reading Cookie")
 		return
 	}
-	fmt.Println("the Cookie value:",cval)
-	if auth.CheckSession(cval["sessionID"],req)!=true{
+	fmt.Println("the Cookie value:", cval)
+	if auth.CheckSession(cval["sessionID"], req) != true {
 		fmt.Println("Error")
 	}
 	tplauth.Execute(w, nil)
