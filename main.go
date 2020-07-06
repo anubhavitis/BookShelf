@@ -10,7 +10,6 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/anubhavitis/BookShelf/auth"
 	"github.com/anubhavitis/BookShelf/database"
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -23,17 +22,21 @@ var db *sql.DB
 func IndexHandler(w http.ResponseWriter, req *http.Request) {
 	fmt.Println("Home is reached.")
 	// books := database.ReadBooks(db)
-	cval, err := auth.ReadCookie(req)
-	if err != nil {
-		fmt.Println("Error while reading Cookie")
-		return
-	}
-	fmt.Println("the Cookie value:", cval)
+	// cval, err := auth.ReadCookie(req)
+	// if err != nil {
+	// 	fmt.Println("Error while reading Cookie")
+	// 	return
+	// }
+	// fmt.Println("the Cookie value:", cval)
 
-	if auth.CheckSession(cval["sessionID"], req) == true {
-		fmt.Println("Gotcha!")
-	} else {
-		tplauth.Execute(w, nil)
+	// if auth.CheckSession(cval["sessionID"], req) == true {
+	// 	fmt.Println("Gotcha!")
+	// } else {
+	// 	tplauth.Execute(w, nil)
+	// }
+	if e := tplauth.Execute(w, nil); e != nil {
+		fmt.Println("Template not executed")
+		log.Fatalln(e)
 	}
 }
 
@@ -144,10 +147,13 @@ func SignUp(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	db = database.InitDb()
+	if _, err := db.Exec("DROP TABLE members"); err != nil {
+		log.Fatal(err)
+	}
 	database.NewTable(db)
 
 	mux := http.NewServeMux()
-	assets := http.FileServer(http.Dir("assets"))
+	assets := http.FileServer(http.Dir("./assets"))
 	mux.Handle("/assets/", http.StripPrefix("/assets/", assets))
 
 	mux.HandleFunc("/", IndexHandler)

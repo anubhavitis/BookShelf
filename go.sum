@@ -4,12 +4,16 @@ github.com/anubhavitis/BookShelf/auth v0.0.0-20200704085421-c688ccdd30bb h1:EweG
 github.com/anubhavitis/BookShelf/auth v0.0.0-20200704085421-c688ccdd30bb/go.mod h1:T38Io152ax2OhQleWWRrOszeOfRnXpBsgscsydaIank=
 github.com/anubhavitis/BookShelf/auth v0.0.0-20200705083833-cca533891330 h1:ueVvRjArIpw46NOFweYtJZJ8r+ki/2FB0aZtYhIOCp0=
 github.com/anubhavitis/BookShelf/auth v0.0.0-20200705083833-cca533891330/go.mod h1:T38Io152ax2OhQleWWRrOszeOfRnXpBsgscsydaIank=
+github.com/anubhavitis/BookShelf/auth v0.0.0-20200705115121-de3207d1aa4d h1:s25vt05ZW8tX4aXQS0OmX9NuogclBju2br4oxPmApBs=
+github.com/anubhavitis/BookShelf/auth v0.0.0-20200705115121-de3207d1aa4d/go.mod h1:T38Io152ax2OhQleWWRrOszeOfRnXpBsgscsydaIank=
 github.com/anubhavitis/BookShelf/database v0.0.0-20200704070756-38f1a95b55a0 h1:QQ6HKsIbogf8vjqzqLLw3sG8TJyl61WbAThv8yMH+CQ=
 github.com/anubhavitis/BookShelf/database v0.0.0-20200704070756-38f1a95b55a0/go.mod h1:c8jgP9Ab8n0+Ir5nu6CoMhSbLhAdp4RPf9tuCtt2xHQ=
 github.com/anubhavitis/BookShelf/database v0.0.0-20200704083433-73d070294cfe h1:LDOpIu+saUYu0nJX8wRTpKAs0MdBlS8JL2ISamTC1a8=
 github.com/anubhavitis/BookShelf/database v0.0.0-20200704083433-73d070294cfe/go.mod h1:SEQwhUKyOt7esnnpY/ZEjIsXPmmiIbcsQ3MfZms6FsI=
 github.com/anubhavitis/BookShelf/database v0.0.0-20200705115121-de3207d1aa4d h1:Jslwq32XaaVjmy9T2Z2UuY4YtC9vhAAhDwFF9qFCyGI=
 github.com/anubhavitis/BookShelf/database v0.0.0-20200705115121-de3207d1aa4d/go.mod h1:SEQwhUKyOt7esnnpY/ZEjIsXPmmiIbcsQ3MfZms6FsI=
+github.com/anubhavitis/BookShelf/database v0.0.0-20200705160421-5f86ea342385 h1:wIzTqNLSsq5/6A0zTAkFtdrJmIQYkS7k2Doc4uhCGm4=
+github.com/anubhavitis/BookShelf/database v0.0.0-20200705160421-5f86ea342385/go.mod h1:SEQwhUKyOt7esnnpY/ZEjIsXPmmiIbcsQ3MfZms6FsI=
 github.com/go-sql-driver/mysql v1.5.0 h1:ozyZYNQW3x3HtqT1jira07DN2PArx2v7/mN66gGcHOs=
 github.com/go-sql-driver/mysql v1.5.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LBy8hT2VhHyBg=
 github.com/google/uuid v1.1.1 h1:Gkbcsh/GbpXz7lPftLA3P6TYMwjCLYm83jiFQZF/3gY=
