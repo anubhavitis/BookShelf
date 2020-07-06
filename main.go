@@ -136,10 +136,10 @@ func SignIn(w http.ResponseWriter, req *http.Request) {
 func SignUp(w http.ResponseWriter, req *http.Request) {
 
 	name := req.FormValue("name")
-	email := req.FormValue("email")
-	password := req.FormValue("password")
-	id := database.AddMember(db, name, email, password)
-	fmt.Println("Registering", name, "at", id)
+	// email := req.FormValue("email")
+	// password := req.FormValue("password")
+	// id := database.AddMember(db, name, email, password)
+	fmt.Println("Registering", name)
 
 	// var id int
 	// if err := rec.Scan(&id); err != nil {
