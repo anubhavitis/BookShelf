@@ -67,16 +67,7 @@ func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 		}
 		return
 	}
-
-	query := ` INSERT INTO mybooks 
-	(name, author, content, favo) 
-	VALUES (?,?,?,?)`
-
-	if _, e := db.Exec(query, newBook.Name, newBook.Author,
-		newBook.Content, newBook.Favo); e != nil {
-		fmt.Println("Error while adding books.")
-		log.Fatal(e)
-	}
+	// database.AddNewBook(db, newBook)
 	books = append(books, *newBook)
 
 	if e := tpl.Execute(w, books); e != nil {
@@ -135,11 +126,12 @@ func SignIn(w http.ResponseWriter, req *http.Request) {
 //SignUp func to handle new registration.
 func SignUp(w http.ResponseWriter, req *http.Request) {
 
-	name := req.FormValue("name")
-	// email := req.FormValue("email")
-	// password := req.FormValue("password")
-	// id := database.AddMember(db, name, email, password)
-	fmt.Println("Registering", name)
+	newMem := &database.Member{}
+	newMem.Name = req.FormValue("name")
+	newMem.Email = req.FormValue("email")
+	newMem.Password = req.FormValue("password")
+	// newMem.UID = database.AddMember(db, newMem)
+	// fmt.Println("Registering", newMem.Name, "at", newMem.UID)
 
 	// var id int
 	// if err := rec.Scan(&id); err != nil {
