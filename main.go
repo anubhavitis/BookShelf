@@ -10,6 +10,7 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/anubhavitis/BookShelf/auth"
 	"github.com/anubhavitis/BookShelf/database"
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -43,6 +44,7 @@ func IndexHandler(w http.ResponseWriter, req *http.Request) {
 
 //SignoutHandler function
 func SignoutHandler(w http.ResponseWriter, req *http.Request) {
+	fmt.Println("Login Page!")
 	tplauth.Execute(w, nil)
 }
 
@@ -133,12 +135,12 @@ func SignUp(w http.ResponseWriter, req *http.Request) {
 	newMem.UID = database.AddMember(db, *newMem)
 	fmt.Println("Registering", newMem.Name, "at", newMem.UID)
 
-	// var id int
-	// if err := rec.Scan(&id); err != nil {
-	// 	log.Fatalln(err)
-	// }
-	// fmt.Println(id)
-
+	if e := auth.CreateCookie(newMem.UID, database.generateUUID, w); e != nil {
+		log.Fatalln(e)
+	}
+	if e := auth.CreateSession(newMem.UID, database.generateUUID, w, req); e != nil {
+		log.Fatalln(e)
+	}
 	tpl.Execute(w, nil)
 }
 

@@ -16,9 +16,10 @@ type Member struct {
 	Password string
 }
 
-func generateUUID() uuid.UUID {
+//GenerateUUID ..
+func GenerateUUID() string {
 	v, _ := uuid.NewUUID()
-	return v
+	return v.String()
 }
 
 //PriBooks ..

@@ -21,6 +21,12 @@ var CookieHandler = securecookie.New(HashKey, BlockKey)
 //SessionStore ...
 var SessionStore = sessions.NewFilesystemStore("/tmp", HashKey)
 
+//Identity ..
+type Identity struct {
+	userID    int
+	sessionID string
+}
+
 //CreateSession ..
 func CreateSession(uID int, sID string,
 	w http.ResponseWriter, r *http.Request) error {
@@ -65,11 +71,10 @@ func CheckSession(sID string, r *http.Request) bool {
 }
 
 //CreateCookie ..
-func CreateCookie(name string, sID string, w http.ResponseWriter) error {
-	val := map[string]string{
-		"username":  name,
-		"sessionId": sID,
-	}
+func CreateCookie(uID int, sID string, w http.ResponseWriter) error {
+	var val Identity
+	val.userID = uID
+	val.sessionID = sID
 
 	if encode, err := CookieHandler.Encode("mycookie", val); err == nil {
 		cookie := &http.Cookie{
@@ -97,15 +102,15 @@ func DeleteCookie(w http.ResponseWriter) {
 }
 
 //ReadCookie ..
-func ReadCookie(r *http.Request) (map[string]string, error) {
+func ReadCookie(r *http.Request) (Identity, error) {
+	var val Identity
 	if cookie, err := r.Cookie("mycookie"); err == nil {
-		val := make(map[string]string)
 		if err = CookieHandler.Decode("mycookie", cookie.Value, &val); err == nil {
 			return val, err
 		}
-		return nil, err
+		return val, err
 	}
-	return nil, nil
+	return val, nil
 }
 
 //LoginForm ..
