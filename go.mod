@@ -3,9 +3,7 @@ module github.com/anubhavitis/BookShelf
 go 1.14
 
 require (
-	github.com/anubhavitis/BookShelf/auth v0.0.0-20200705115121-de3207d1aa4d
-	github.com/anubhavitis/BookShelf/database v0.0.0-20200706104248-e57f1500310d
+	github.com/anubhavitis/BookShelf/auth v0.0.0-20200705160948-9d8527c47ff3
+	github.com/anubhavitis/BookShelf/database v0.0.0-20200706154618-66ed982c28f8
 	github.com/go-sql-driver/mysql v1.5.0
-	github.com/gorilla/securecookie v1.1.1
-	github.com/gorilla/sessions v1.2.0
 )

@@ -6,6 +6,8 @@ github.com/anubhavitis/BookShelf/auth v0.0.0-20200705083833-cca533891330 h1:ueVv
 github.com/anubhavitis/BookShelf/auth v0.0.0-20200705083833-cca533891330/go.mod h1:T38Io152ax2OhQleWWRrOszeOfRnXpBsgscsydaIank=
 github.com/anubhavitis/BookShelf/auth v0.0.0-20200705115121-de3207d1aa4d h1:s25vt05ZW8tX4aXQS0OmX9NuogclBju2br4oxPmApBs=
 github.com/anubhavitis/BookShelf/auth v0.0.0-20200705115121-de3207d1aa4d/go.mod h1:T38Io152ax2OhQleWWRrOszeOfRnXpBsgscsydaIank=
+github.com/anubhavitis/BookShelf/auth v0.0.0-20200705160948-9d8527c47ff3 h1:fHl5/PIfNwatkyEODF+F93JO7oImvR4pNHufLhzn548=
+github.com/anubhavitis/BookShelf/auth v0.0.0-20200705160948-9d8527c47ff3/go.mod h1:T38Io152ax2OhQleWWRrOszeOfRnXpBsgscsydaIank=
 github.com/anubhavitis/BookShelf/database v0.0.0-20200704070756-38f1a95b55a0 h1:QQ6HKsIbogf8vjqzqLLw3sG8TJyl61WbAThv8yMH+CQ=
 github.com/anubhavitis/BookShelf/database v0.0.0-20200704070756-38f1a95b55a0/go.mod h1:c8jgP9Ab8n0+Ir5nu6CoMhSbLhAdp4RPf9tuCtt2xHQ=
 github.com/anubhavitis/BookShelf/database v0.0.0-20200704083433-73d070294cfe h1:LDOpIu+saUYu0nJX8wRTpKAs0MdBlS8JL2ISamTC1a8=
@@ -22,6 +24,10 @@ github.com/anubhavitis/BookShelf/database v0.0.0-20200706101741-6a649ccd67db h1:
 github.com/anubhavitis/BookShelf/database v0.0.0-20200706101741-6a649ccd67db/go.mod h1:SEQwhUKyOt7esnnpY/ZEjIsXPmmiIbcsQ3MfZms6FsI=
 github.com/anubhavitis/BookShelf/database v0.0.0-20200706104248-e57f1500310d h1:pyY37u10oljMd+XyV8X72eLKFOrnNH6LD7ml0vip3FM=
 github.com/anubhavitis/BookShelf/database v0.0.0-20200706104248-e57f1500310d/go.mod h1:SEQwhUKyOt7esnnpY/ZEjIsXPmmiIbcsQ3MfZms6FsI=
+github.com/anubhavitis/BookShelf/database v0.0.0-20200706110638-8c7cd85bda7f h1:A+ngJf59Y6Vuhbx1KagPRSDGXRWBlPBbdenRAGrPYuQ=
+github.com/anubhavitis/BookShelf/database v0.0.0-20200706110638-8c7cd85bda7f/go.mod h1:SEQwhUKyOt7esnnpY/ZEjIsXPmmiIbcsQ3MfZms6FsI=
+github.com/anubhavitis/BookShelf/database v0.0.0-20200706154618-66ed982c28f8 h1:/BMIHspQXF46NjptIdcom94GONDuy6yczKGyw5uekyM=
+github.com/anubhavitis/BookShelf/database v0.0.0-20200706154618-66ed982c28f8/go.mod h1:SEQwhUKyOt7esnnpY/ZEjIsXPmmiIbcsQ3MfZms6FsI=
 github.com/go-sql-driver/mysql v1.5.0 h1:ozyZYNQW3x3HtqT1jira07DN2PArx2v7/mN66gGcHOs=
 github.com/go-sql-driver/mysql v1.5.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LBy8hT2VhHyBg=
 github.com/google/uuid v1.1.1 h1:Gkbcsh/GbpXz7lPftLA3P6TYMwjCLYm83jiFQZF/3gY=

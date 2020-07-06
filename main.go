@@ -10,7 +10,6 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/anubhavitis/BookShelf/auth"
 	"github.com/anubhavitis/BookShelf/database"
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -134,13 +133,13 @@ func SignUp(w http.ResponseWriter, req *http.Request) {
 	newMem.Password = req.FormValue("password")
 	newMem.UID = database.AddMember(db, *newMem)
 	fmt.Println("Registering", newMem.Name, "at", newMem.UID)
-
-	if e := auth.CreateCookie(newMem.UID, database.generateUUID, w); e != nil {
-		log.Fatalln(e)
-	}
-	if e := auth.CreateSession(newMem.UID, database.generateUUID, w, req); e != nil {
-		log.Fatalln(e)
-	}
+	// sID := database.GenerateUUID()
+	// if e := auth.CreateCookie(newMem.UID, sID, w); e != nil {
+	// 	log.Fatalln(e)
+	// }
+	// if e := auth.CreateSession(newMem.UID, sID, w, req); e != nil {
+	// 	log.Fatalln(e)
+	// }
 	tpl.Execute(w, nil)
 }
 
