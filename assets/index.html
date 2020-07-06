@@ -65,20 +65,20 @@
 	</nav>
 	<div class="" id="container">
 		<div class="form-container sign-up-container">
-			<form action="/signup" method="GET">
+			<form action="/signup" method="POST">
 				<h1 class="is-size-5">Create Account</h1>
-				<input class="input is-rounded" type="text" placeholder="Name" />
-				<input class="input is-rounded" type="email" 
+				<input class="input is-rounded" type="text" name="name" placeholder="Name" required/>
+				<input class="input is-rounded" type="email" required name="email"
 					pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Email" />
-				<input class="input is-rounded" type="password"
+				<input class="input is-rounded" type="password" name="password" required
 					id="password" placeholder="Password"/>
-				<input class="input is-rounded" type="password" 
+				<input class="input is-rounded" type="password" required
 					id="c_password" placeholder="Repeat Password"/>
 				<button type="signup" id="signup">Sign Up</button>
 			</form>
 		</div>
 		<div class="form-container sign-in-container">
-			<form action="/signin" method="GET">
+			<form action="/signin" method="POST">
 				<h1 class="is-size-5">Welcome Back!</h1>
 				<input class="input is-rounded"  type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"  placeholder="Email" />
 				<input class="input is-rounded" type="password" placeholder="Password" />

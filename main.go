@@ -48,21 +48,13 @@ func SignoutHandler(w http.ResponseWriter, req *http.Request) {
 
 //SubmitHandler function
 func SubmitHandler(w http.ResponseWriter, req *http.Request) {
-	u, err := url.Parse(req.URL.String())
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Internal Server Error"))
-		return
-	}
-
 	books := database.ReadBooks(db)
 	fmt.Println("Current database ", len(books), " books")
 
-	params := u.Query()
 	newBook := &database.Book{}
-	newBook.Name = params.Get("name")
-	newBook.Author = params.Get("author")
-	newBook.Content = params.Get("content")
+	newBook.Name = req.FormValue("name")
+	newBook.Author = req.FormValue("author")
+	newBook.Content = req.FormValue("content")
 	newBook.Favo = 0
 	fmt.Println("Book read", newBook.Name)
 
@@ -142,6 +134,19 @@ func SignIn(w http.ResponseWriter, req *http.Request) {
 
 //SignUp func to handle new registration.
 func SignUp(w http.ResponseWriter, req *http.Request) {
+
+	name := req.FormValue("name")
+	email := req.FormValue("email")
+	password := req.FormValue("password")
+	id := database.AddMember(db, name, email, password)
+	fmt.Println("Registering", name, "at", id)
+
+	// var id int
+	// if err := rec.Scan(&id); err != nil {
+	// 	log.Fatalln(err)
+	// }
+	// fmt.Println(id)
+
 	tpl.Execute(w, nil)
 }
 

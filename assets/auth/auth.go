@@ -22,7 +22,7 @@ var CookieHandler = securecookie.New(HashKey, BlockKey)
 var SessionStore = sessions.NewFilesystemStore("/tmp", HashKey)
 
 //CreateSession ..
-func CreateSession(name string, sID string,
+func CreateSession(uID int, sID string,
 	w http.ResponseWriter, r *http.Request) error {
 	session, err := SessionStore.Get(r, "Allsessions")
 	if err != nil {
@@ -30,7 +30,7 @@ func CreateSession(name string, sID string,
 		log.Fatal()
 	}
 	session.Values["sessionID"] = sID
-	session.Values["username"] = name
+	session.Values["userID"] = uID
 
 	err = session.Save(r, w)
 	if err != nil {
