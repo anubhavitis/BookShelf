@@ -15,9 +15,9 @@ type Member struct {
 	Password string
 }
 
-func generateUUID() {
+func generateUUID() uuid.UUID {
 	v, _ := uuid.NewUUID()
-	fmt.Print(v)
+	return v
 }
 
 //PriBooks ..
@@ -107,4 +107,31 @@ func ReadBooks(db *sql.DB) []Book {
 		PriBooks[temp.Name] = temp
 	}
 	return books
+}
+
+//AddMember ..
+func AddMember(db *sql.DB, name string, email string, password string) int {
+	q := ` INSERT INTO members
+		(name, email,password)
+		Values(?,?,?)`
+
+	if _, e := db.Exec(q, name, email, password); e != nil {
+		log.Fatalln(e)
+		fmt.Println("member not added to record.")
+	}
+	q = `SELECT id FROM members WHERE email=?`
+	rec, e := db.Query(q, email)
+	if e != nil {
+		log.Fatalln(e)
+		fmt.Println("Error at query to find a record")
+	}
+	defer rec.Close()
+	var id int
+	for rec.Next() {
+		if err := rec.Scan(&id); err != nil {
+			log.Fatal(err)
+			fmt.Println("Error at scanning resulted query")
+		}
+	}
+	return id
 }
