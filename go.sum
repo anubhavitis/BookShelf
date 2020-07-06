@@ -14,6 +14,8 @@ github.com/anubhavitis/BookShelf/database v0.0.0-20200705115121-de3207d1aa4d h1:
 github.com/anubhavitis/BookShelf/database v0.0.0-20200705115121-de3207d1aa4d/go.mod h1:SEQwhUKyOt7esnnpY/ZEjIsXPmmiIbcsQ3MfZms6FsI=
 github.com/anubhavitis/BookShelf/database v0.0.0-20200705160421-5f86ea342385 h1:wIzTqNLSsq5/6A0zTAkFtdrJmIQYkS7k2Doc4uhCGm4=
 github.com/anubhavitis/BookShelf/database v0.0.0-20200705160421-5f86ea342385/go.mod h1:SEQwhUKyOt7esnnpY/ZEjIsXPmmiIbcsQ3MfZms6FsI=
+github.com/anubhavitis/BookShelf/database v0.0.0-20200706045911-621a7699b689 h1:NSQtR69C6rA/WxRO1BXXWoPRcutgzbEoBXTjXZ+7KeY=
+github.com/anubhavitis/BookShelf/database v0.0.0-20200706045911-621a7699b689/go.mod h1:SEQwhUKyOt7esnnpY/ZEjIsXPmmiIbcsQ3MfZms6FsI=
 github.com/go-sql-driver/mysql v1.5.0 h1:ozyZYNQW3x3HtqT1jira07DN2PArx2v7/mN66gGcHOs=
 github.com/go-sql-driver/mysql v1.5.0/go.mod h1:DCzpHaOWr8IXmIStZouvnhqoel9Qv2LBy8hT2VhHyBg=
 github.com/google/uuid v1.1.1 h1:Gkbcsh/GbpXz7lPftLA3P6TYMwjCLYm83jiFQZF/3gY=

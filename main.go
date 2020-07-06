@@ -20,7 +20,7 @@ var db *sql.DB
 
 //IndexHandler function
 func IndexHandler(w http.ResponseWriter, req *http.Request) {
-	fmt.Println("Home is reached.")
+	fmt.Println("Login Screen.")
 	// books := database.ReadBooks(db)
 	// cval, err := auth.ReadCookie(req)
 	// if err != nil {
@@ -30,8 +30,9 @@ func IndexHandler(w http.ResponseWriter, req *http.Request) {
 	// fmt.Println("the Cookie value:", cval)
 
 	// if auth.CheckSession(cval["sessionID"], req) == true {
-	// 	fmt.Println("Gotcha!")
+	// 	fmt.Println("User auto LoggedIn")
 	// } else {
+	// 	fmt.Println("No user data found!")
 	// 	tplauth.Execute(w, nil)
 	// }
 	if e := tplauth.Execute(w, nil); e != nil {
@@ -55,11 +56,8 @@ func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 	}
 
 	books := database.ReadBooks(db)
-	fmt.Println("Current database")
-	for x := range books {
-		fmt.Println(books[x].Name, books[x].Author,
-			books[x].Content, books[x].Favo)
-	}
+	fmt.Println("Current database ", len(books), " books")
+
 	params := u.Query()
 	newBook := &database.Book{}
 	newBook.Name = params.Get("name")
@@ -80,10 +78,12 @@ func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 
 	query := ` INSERT INTO mybooks 
 	(name, author, content, favo) 
-	VALUES (?,?,?,?,?)`
+	VALUES (?,?,?,?)`
+
 	if _, e := db.Exec(query, newBook.Name, newBook.Author,
 		newBook.Content, newBook.Favo); e != nil {
-		log.Fatal(err)
+		fmt.Println("Error while adding books.")
+		log.Fatal(e)
 	}
 	books = append(books, *newBook)
 
@@ -147,9 +147,6 @@ func SignUp(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	db = database.InitDb()
-	if _, err := db.Exec("DROP TABLE members"); err != nil {
-		log.Fatal(err)
-	}
 	database.NewTable(db)
 
 	mux := http.NewServeMux()
