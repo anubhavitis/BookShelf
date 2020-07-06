@@ -10,6 +10,7 @@ import (
 
 //Member stuct for registered users
 type Member struct {
+	UID      int
 	Name     string
 	Email    string
 	Password string
@@ -110,17 +111,17 @@ func ReadBooks(db *sql.DB) []Book {
 }
 
 //AddMember ..
-func AddMember(db *sql.DB, name string, email string, password string) int {
+func AddMember(db *sql.DB, newMem Member) int {
 	q := ` INSERT INTO members
 		(name, email,password)
 		Values(?,?,?)`
 
-	if _, e := db.Exec(q, name, email, password); e != nil {
+	if _, e := db.Exec(q, newMem.Name, newMem.Email, newMem.Password); e != nil {
 		log.Fatalln(e)
 		fmt.Println("member not added to record.")
 	}
 	q = `SELECT id FROM members WHERE email=?`
-	rec, e := db.Query(q, email)
+	rec, e := db.Query(q, newMem.Email)
 	if e != nil {
 		log.Fatalln(e)
 		fmt.Println("Error at query to find a record")
@@ -134,4 +135,17 @@ func AddMember(db *sql.DB, name string, email string, password string) int {
 		}
 	}
 	return id
+}
+
+//AddNewBook ..
+func AddNewBook(db *sql.DB, newBook Book) {
+	query := ` INSERT INTO mybooks 
+	(name, author, content, favo) 
+	VALUES (?,?,?,?)`
+
+	if _, e := db.Exec(query, newBook.Name, newBook.Author,
+		newBook.Content, newBook.Favo); e != nil {
+		fmt.Println("Error while adding books.")
+		log.Fatal(e)
+	}
 }
