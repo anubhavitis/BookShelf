@@ -148,4 +148,5 @@ func AddNewBook(db *sql.DB, newBook Book) {
 		fmt.Println("Error while adding books.")
 		log.Fatal(e)
 	}
+	fmt.Println("Book added to database!")
 }
