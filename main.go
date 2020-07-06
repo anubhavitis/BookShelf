@@ -67,7 +67,7 @@ func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 		}
 		return
 	}
-	// database.AddNewBook(db, newBook)
+	database.AddNewBook(db, *newBook)
 	books = append(books, *newBook)
 
 	if e := tpl.Execute(w, books); e != nil {
@@ -130,8 +130,8 @@ func SignUp(w http.ResponseWriter, req *http.Request) {
 	newMem.Name = req.FormValue("name")
 	newMem.Email = req.FormValue("email")
 	newMem.Password = req.FormValue("password")
-	// newMem.UID = database.AddMember(db, newMem)
-	// fmt.Println("Registering", newMem.Name, "at", newMem.UID)
+	newMem.UID = database.AddMember(db, *newMem)
+	fmt.Println("Registering", newMem.Name, "at", newMem.UID)
 
 	// var id int
 	// if err := rec.Scan(&id); err != nil {
