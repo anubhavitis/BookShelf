@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"html/template"
-	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -24,21 +23,38 @@ func IndexHandler(w http.ResponseWriter, req *http.Request) {
 
 	cval, err := auth.ReadCookie(req)
 	if err != nil {
-		log.Fatalln(err)
+		fmt.Println(err)
+		return
 	}
 	f := 0
-	if cval["userID"] == "" {
+	if cval == nil {
 		f = 1
-	} else if auth.CheckSession(cval["sessionID"], req) == false {
-		f = 1
+	} else {
+		if a, e := auth.CheckSession(cval["sessionID"], req); e == nil {
+			if a == false {
+				f = 1
+			}
+		} else {
+			fmt.Println(e)
+			return
+		}
 	}
 
 	if f == 1 {
+		auth.DeleteCookie(w)
 		tplauth.Execute(w, nil)
 		return
 	}
-
-	books := database.ReadBooks(db, database.GetUser(db, cval["userID"]))
+	user, err := database.GetUser(db, cval["userID"])
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	books, err := database.ReadBooks(db, user)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 	tpl.Execute(w, books)
 }
 
@@ -46,10 +62,19 @@ func IndexHandler(w http.ResponseWriter, req *http.Request) {
 func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 	cval, err := auth.ReadCookie(req)
 	if err != nil {
-		log.Fatalln(err)
+		fmt.Println(err)
+		return
 	}
-	user := database.GetUser(db, cval["userID"])
-	books := database.ReadBooks(db, user)
+	user, err := database.GetUser(db, cval["userID"])
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	books, err := database.ReadBooks(db, user)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 	fmt.Println("Current database ", len(books), " books")
 
 	newBook := &database.Book{}
@@ -64,11 +89,16 @@ func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 		fmt.Println("Book already exists in the record.")
 		if err := tpl.Execute(w, books); err != nil {
 			fmt.Println("Error here at executing template.")
-			log.Fatal(err)
+			fmt.Print(err)
+			return
 		}
 		return
 	}
-	database.AddNewBook(db, *newBook, cval["userID"])
+	err1 := database.AddNewBook(db, *newBook, cval["userID"])
+	if err1 != nil {
+		fmt.Println(err1)
+		return
+	}
 	books = append(books, *newBook)
 
 	tpl.Execute(w, books)
@@ -79,40 +109,58 @@ func UpdateHandler(w http.ResponseWriter, req *http.Request) {
 
 	u, err := url.Parse(req.URL.String())
 	if err != nil {
-		log.Fatal(err)
+		fmt.Print(err)
 		return
 	}
+
 	params := u.Query()
 	bookname := params.Get("name")
 	fav, err1 := strconv.Atoi(params.Get("fav"))
 	if err1 != nil {
-		log.Fatal(err1)
+		fmt.Print(err1)
+		return
 	}
 	del, err2 := strconv.Atoi(params.Get("del"))
 	if err2 != nil {
-		log.Fatal(err1)
+		fmt.Print(err1)
+		return
 	}
+
 	cval, err := auth.ReadCookie(req)
 	if err != nil {
-		log.Fatalln(err)
+		fmt.Println(err)
+		return
 	}
-	user := database.GetUser(db, cval["userID"])
+	user, err := database.GetUser(db, cval["userID"])
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
 	if del == 0 {
 		fav = fav ^ 1
 		q := "UPDATE mybooks SET favo=? WHERE name=? and user=?"
 		if _, e := db.Exec(q, fav, bookname, user); e != nil {
 			fmt.Println("Upating database error!")
-			log.Fatal(e)
+			fmt.Print(e)
+			return
 		}
 	} else {
 		q := "DELETE FROM mybooks WHERE name=? and user=?"
 		if _, e := db.Exec(q, bookname, user); e != nil {
 			fmt.Println("Upating database error!")
-			log.Fatal(e)
+			fmt.Print(e)
+			return
 		}
 		delete(database.PriBooks, bookname)
 	}
-	books := database.ReadBooks(db, user)
+	books, err := database.ReadBooks(db, user)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(fav, del, user)
+
 	tpl.Execute(w, books)
 
 }
@@ -123,7 +171,11 @@ func SignIn(w http.ResponseWriter, req *http.Request) {
 	email := req.FormValue("email")
 	password := req.FormValue("password")
 
-	userID, authkey := database.GetIDPassword(db, email)
+	userID, authkey, err := database.GetIDPassword(db, email)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	if authkey != password {
 		fmt.Println("Wrong Password")
@@ -133,13 +185,24 @@ func SignIn(w http.ResponseWriter, req *http.Request) {
 	sID := database.GenerateUUID()
 	if e := auth.CreateCookie(userID, sID, w); e != nil {
 		fmt.Println("Error while creating cookie")
-		log.Fatalln(e)
+		fmt.Println(e)
+		return
 	}
 	if e := auth.CreateSession(userID, sID, w, req); e != nil {
 		fmt.Println("Error while creating a session")
-		log.Fatalln(e)
+		fmt.Println(e)
+		return
 	}
-	books := database.ReadBooks(db, database.GetUser(db, userID))
+	user, err := database.GetUser(db, userID)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	books, err := database.ReadBooks(db, user)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 	tpl.Execute(w, books)
 }
 
@@ -150,18 +213,35 @@ func SignUp(w http.ResponseWriter, req *http.Request) {
 	newMem.Name = req.FormValue("name")
 	newMem.Email = req.FormValue("email")
 	newMem.Password = req.FormValue("password")
-	newMem.UID = database.AddMember(db, *newMem)
+
+	name, err := database.AddMember(db, *newMem)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	newMem.UID = name
 	fmt.Println("Registering", newMem.Name, "at", newMem.UID)
 	sID := database.GenerateUUID()
 	if e := auth.CreateCookie(newMem.UID, sID, w); e != nil {
 		fmt.Println("Error while creating cookie")
-		log.Fatalln(e)
+		fmt.Println(e)
+		return
 	}
 	if e := auth.CreateSession(newMem.UID, sID, w, req); e != nil {
 		fmt.Println("Error while creating a session")
-		log.Fatalln(e)
+		fmt.Println(e)
+		return
 	}
-	books := database.ReadBooks(db, database.GetUser(db, newMem.UID))
+	user, err := database.GetUser(db, newMem.UID)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	books, err := database.ReadBooks(db, user)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 	tpl.Execute(w, books)
 }
 
@@ -173,7 +253,12 @@ func SignoutHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	db = database.InitDb()
+	dab, err := database.InitDb()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	db = dab
 	// database.NewBookTable(db)
 	// database.NewMemberTable(db)
 

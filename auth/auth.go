@@ -1,8 +1,6 @@
 package auth
 
 import (
-	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/gorilla/securecookie"
@@ -26,8 +24,7 @@ func CreateSession(uID string, sID string,
 	w http.ResponseWriter, r *http.Request) error {
 	session, err := SessionStore.Get(r, "Allsessions")
 	if err != nil {
-		fmt.Println(err)
-		log.Fatal()
+		return nil
 	}
 
 	session.Values["sessionID"] = sID
@@ -35,34 +32,33 @@ func CreateSession(uID string, sID string,
 
 	err = session.Save(r, w)
 	if err != nil {
-		fmt.Println(err)
-		log.Fatal()
+		return err
 	}
 	return nil
 }
 
 //ClearSession ..
-func ClearSession(w http.ResponseWriter, r *http.Request) {
+func ClearSession(w http.ResponseWriter, r *http.Request) error {
 
 	session, err := SessionStore.Get(r, "Allsessions")
 	if err != nil {
-		fmt.Println(err)
-		log.Fatal()
+		return err
 	}
 	session.Options.MaxAge = -1
 	session.Save(r, w)
+	return nil
 }
 
 //CheckSession .
-func CheckSession(sID string, r *http.Request) bool {
+func CheckSession(sID string, r *http.Request) (bool, error) {
 	session, err := SessionStore.Get(r, "Allsessions")
 	if err != nil {
-		log.Fatalln(err)
+		return false, err
 	}
 	if session.Values["sessionID"] == sID {
-		return true
+		return true, nil
 	}
-	return false
+	return false, nil
 }
 
 //CreateCookie ..
