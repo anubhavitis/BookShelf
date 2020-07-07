@@ -68,6 +68,7 @@ func CheckSession(sID string, r *http.Request) bool {
 //CreateCookie ..
 func CreateCookie(uID string, sID string, w http.ResponseWriter) error {
 	val := map[string]string{
+		"userID":    uID,
 		"sessionID": sID,
 	}
 	if encode, err := CookieHandler.Encode("mycookie", val); err == nil {

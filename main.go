@@ -21,36 +21,35 @@ var db *sql.DB
 
 //IndexHandler function
 func IndexHandler(w http.ResponseWriter, req *http.Request) {
-	fmt.Println("Login Screen.")
-	// books := database.ReadBooks(db)
-	// cval, err := auth.ReadCookie(req)
-	// if err != nil {
-	// 	fmt.Println("Error while reading Cookie")
-	// 	return
-	// }
-	// fmt.Println("the Cookie value:", cval)
 
-	// if auth.CheckSession(cval["sessionID"], req) == true {
-	// 	fmt.Println("User auto LoggedIn")
-	// } else {
-	// 	fmt.Println("No user data found!")
-	// 	tplauth.Execute(w, nil)
-	// }
-	if e := tplauth.Execute(w, nil); e != nil {
-		fmt.Println("Template not executed")
-		log.Fatalln(e)
+	cval, err := auth.ReadCookie(req)
+	if err != nil {
+		log.Fatalln(err)
 	}
-}
+	f := 0
+	if cval["userID"] == "" {
+		f = 1
+	} else if auth.CheckSession(cval["sessionID"], req) == false {
+		f = 1
+	}
 
-//SignoutHandler function
-func SignoutHandler(w http.ResponseWriter, req *http.Request) {
-	fmt.Println("Login Page!")
-	tplauth.Execute(w, nil)
+	if f == 1 {
+		tplauth.Execute(w, nil)
+		return
+	}
+
+	books := database.ReadBooks(db, database.GetUser(db, cval["userID"]))
+	tpl.Execute(w, books)
 }
 
 //SubmitHandler function
 func SubmitHandler(w http.ResponseWriter, req *http.Request) {
-	books := database.ReadBooks(db)
+	cval, err := auth.ReadCookie(req)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	user := database.GetUser(db, cval["userID"])
+	books := database.ReadBooks(db, user)
 	fmt.Println("Current database ", len(books), " books")
 
 	newBook := &database.Book{}
@@ -69,13 +68,10 @@ func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 		}
 		return
 	}
-	database.AddNewBook(db, *newBook)
+	database.AddNewBook(db, *newBook, cval["userID"])
 	books = append(books, *newBook)
 
-	if e := tpl.Execute(w, books); e != nil {
-		fmt.Println("Error here at executing template.")
-		log.Fatal(e)
-	}
+	tpl.Execute(w, books)
 }
 
 //UpdateHandler function
@@ -87,7 +83,7 @@ func UpdateHandler(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 	params := u.Query()
-	name := params.Get("name")
+	bookname := params.Get("name")
 	fav, err1 := strconv.Atoi(params.Get("fav"))
 	if err1 != nil {
 		log.Fatal(err1)
@@ -96,27 +92,28 @@ func UpdateHandler(w http.ResponseWriter, req *http.Request) {
 	if err2 != nil {
 		log.Fatal(err1)
 	}
+	cval, err := auth.ReadCookie(req)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	user := database.GetUser(db, cval["userID"])
 	if del == 0 {
 		fav = fav ^ 1
-		q := "UPDATE mybooks SET favo=? WHERE name=?"
-		if _, e := db.Exec(q, fav, name); e != nil {
+		q := "UPDATE mybooks SET favo=? WHERE name=? and user=?"
+		if _, e := db.Exec(q, fav, bookname, user); e != nil {
 			fmt.Println("Upating database error!")
 			log.Fatal(e)
 		}
 	} else {
-		q := "DELETE FROM mybooks WHERE name=?"
-		if _, e := db.Exec(q, name); e != nil {
+		q := "DELETE FROM mybooks WHERE name=? and user=?"
+		if _, e := db.Exec(q, bookname, user); e != nil {
 			fmt.Println("Upating database error!")
 			log.Fatal(e)
 		}
-		delete(database.PriBooks, name)
+		delete(database.PriBooks, bookname)
 	}
-	books := database.ReadBooks(db)
-
-	if e := tpl.Execute(w, books); e != nil {
-		fmt.Println("Error here at executing template.")
-		log.Fatal(e)
-	}
+	books := database.ReadBooks(db, user)
+	tpl.Execute(w, books)
 
 }
 
@@ -126,7 +123,7 @@ func SignIn(w http.ResponseWriter, req *http.Request) {
 	email := req.FormValue("email")
 	password := req.FormValue("password")
 
-	id, authkey := database.GetPassword(db, email)
+	userID, authkey := database.GetIDPassword(db, email)
 
 	if authkey != password {
 		fmt.Println("Wrong Password")
@@ -134,16 +131,16 @@ func SignIn(w http.ResponseWriter, req *http.Request) {
 	}
 	fmt.Println("User Authenticated!")
 	sID := database.GenerateUUID()
-	if e := auth.CreateCookie(id, sID, w); e != nil {
+	if e := auth.CreateCookie(userID, sID, w); e != nil {
 		fmt.Println("Error while creating cookie")
 		log.Fatalln(e)
 	}
-	if e := auth.CreateSession(id, sID, w, req); e != nil {
+	if e := auth.CreateSession(userID, sID, w, req); e != nil {
 		fmt.Println("Error while creating a session")
 		log.Fatalln(e)
 	}
-
-	tpl.Execute(w, nil)
+	books := database.ReadBooks(db, database.GetUser(db, userID))
+	tpl.Execute(w, books)
 }
 
 //SignUp func to handle new registration.
@@ -164,12 +161,21 @@ func SignUp(w http.ResponseWriter, req *http.Request) {
 		fmt.Println("Error while creating a session")
 		log.Fatalln(e)
 	}
-	tpl.Execute(w, nil)
+	books := database.ReadBooks(db, database.GetUser(db, newMem.UID))
+	tpl.Execute(w, books)
+}
+
+//SignoutHandler function
+func SignoutHandler(w http.ResponseWriter, req *http.Request) {
+	auth.DeleteCookie(w)
+	auth.ClearSession(w, req)
+	tplauth.Execute(w, nil)
 }
 
 func main() {
 	db = database.InitDb()
-	database.NewTable(db)
+	// database.NewBookTable(db)
+	// database.NewMemberTable(db)
 
 	mux := http.NewServeMux()
 	assets := http.FileServer(http.Dir("./assets"))

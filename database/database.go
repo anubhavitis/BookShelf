@@ -52,8 +52,8 @@ func InitDb() *sql.DB {
 	return dab
 }
 
-//NewTable ..
-func NewTable(db *sql.DB) {
+//NewBookTable ..
+func NewBookTable(db *sql.DB) {
 
 	if _, err := db.Exec("DROP TABLE mybooks"); err != nil {
 		log.Fatal(err)
@@ -62,6 +62,7 @@ func NewTable(db *sql.DB) {
 	query := `
 	CREATE TABLE mybooks(
 		id INT AUTO_INCREMENT,
+		user TEXT NOT NULL,
 		name TEXT NOT NULL,
 		author TEXT NOT NULL,
 		content TEXT NOT NULL,
@@ -72,12 +73,16 @@ func NewTable(db *sql.DB) {
 		log.Fatal(err)
 	}
 	fmt.Println("mybooks Created!")
+}
+
+//NewMemberTable ..
+func NewMemberTable(db *sql.DB) {
 
 	if _, err := db.Exec("DROP TABLE members"); err != nil {
 		log.Fatal(err)
 	}
 
-	query = `
+	query := `
 	CREATE TABLE members(
 		id INT AUTO_INCREMENT,
 		name TEXT NOT NULL,
@@ -93,9 +98,10 @@ func NewTable(db *sql.DB) {
 }
 
 //ReadBooks read all books and stores it in the map books
-func ReadBooks(db *sql.DB) []Book {
+func ReadBooks(db *sql.DB, user string) []Book {
 	var books []Book
-	rows, er := db.Query(`SELECT name,author,content,favo FROM mybooks`)
+	q := `SELECT name,author,content,favo FROM mybooks WHERE user=?`
+	rows, er := db.Query(q, user)
 	if er != nil {
 		log.Fatal(er)
 	}
@@ -140,12 +146,12 @@ func AddMember(db *sql.DB, newMem Member) string {
 }
 
 //AddNewBook ..
-func AddNewBook(db *sql.DB, newBook Book) {
+func AddNewBook(db *sql.DB, newBook Book, user string) {
 	query := ` INSERT INTO mybooks 
-	(name, author, content, favo) 
-	VALUES (?,?,?,?)`
+	(name,user, author, content, favo) 
+	VALUES (?,?,?,?,?)`
 
-	if _, e := db.Exec(query, newBook.Name, newBook.Author,
+	if _, e := db.Exec(query, newBook.Name, user, newBook.Author,
 		newBook.Content, newBook.Favo); e != nil {
 		fmt.Println("Error while adding books.")
 		log.Fatal(e)
@@ -153,13 +159,13 @@ func AddNewBook(db *sql.DB, newBook Book) {
 	fmt.Println("Book added to database!")
 }
 
-//GetPassword ..
-func GetPassword(db *sql.DB, email string) (string, string) {
+//GetIDPassword ..
+func GetIDPassword(db *sql.DB, email string) (string, string) {
 	q := `SELECT id,password FROM members WHERE email=?`
 	rec, e := db.Query(q, email)
 	if e != nil {
-		log.Fatalln(e)
 		fmt.Println("Error at query to find a record")
+		log.Fatalln(e)
 	}
 	defer rec.Close()
 
@@ -171,4 +177,22 @@ func GetPassword(db *sql.DB, email string) (string, string) {
 		}
 	}
 	return strconv.Itoa(id), pkey
+}
+
+//GetUser ..
+func GetUser(db *sql.DB, uID string) string {
+	q := `SELECT name FROM members WHERE id=?`
+	row, err := db.Query(q, uID)
+	if err != nil {
+		fmt.Println("Error at query to find a user")
+		log.Fatalln(err)
+	}
+	defer row.Close()
+	var username string
+	for row.Next() {
+		if e := row.Scan(&username); e != nil {
+			log.Fatalln(e)
+		}
+	}
+	return username
 }
