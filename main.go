@@ -10,6 +10,7 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/anubhavitis/BookShelf/auth"
 	"github.com/anubhavitis/BookShelf/database"
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -121,6 +122,27 @@ func UpdateHandler(w http.ResponseWriter, req *http.Request) {
 
 //SignIn func to for new session auth
 func SignIn(w http.ResponseWriter, req *http.Request) {
+
+	email := req.FormValue("email")
+	password := req.FormValue("password")
+
+	id, authkey := database.GetPassword(db, email)
+
+	if authkey != password {
+		fmt.Println("Wrong Password")
+		return
+	}
+	fmt.Println("User Authenticated!")
+	sID := database.GenerateUUID()
+	if e := auth.CreateCookie(id, sID, w); e != nil {
+		fmt.Println("Error while creating cookie")
+		log.Fatalln(e)
+	}
+	if e := auth.CreateSession(id, sID, w, req); e != nil {
+		fmt.Println("Error while creating a session")
+		log.Fatalln(e)
+	}
+
 	tpl.Execute(w, nil)
 }
 
@@ -133,13 +155,15 @@ func SignUp(w http.ResponseWriter, req *http.Request) {
 	newMem.Password = req.FormValue("password")
 	newMem.UID = database.AddMember(db, *newMem)
 	fmt.Println("Registering", newMem.Name, "at", newMem.UID)
-	// sID := database.GenerateUUID()
-	// if e := auth.CreateCookie(newMem.UID, sID, w); e != nil {
-	// 	log.Fatalln(e)
-	// }
-	// if e := auth.CreateSession(newMem.UID, sID, w, req); e != nil {
-	// 	log.Fatalln(e)
-	// }
+	sID := database.GenerateUUID()
+	if e := auth.CreateCookie(newMem.UID, sID, w); e != nil {
+		fmt.Println("Error while creating cookie")
+		log.Fatalln(e)
+	}
+	if e := auth.CreateSession(newMem.UID, sID, w, req); e != nil {
+		fmt.Println("Error while creating a session")
+		log.Fatalln(e)
+	}
 	tpl.Execute(w, nil)
 }
 

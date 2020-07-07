@@ -4,13 +4,14 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"strconv"
 
 	"github.com/google/uuid"
 )
 
 //Member stuct for registered users
 type Member struct {
-	UID      int
+	UID      string
 	Name     string
 	Email    string
 	Password string
@@ -112,7 +113,7 @@ func ReadBooks(db *sql.DB) []Book {
 }
 
 //AddMember ..
-func AddMember(db *sql.DB, newMem Member) int {
+func AddMember(db *sql.DB, newMem Member) string {
 	q := ` INSERT INTO members
 		(name, email,password)
 		Values(?,?,?)`
@@ -135,7 +136,7 @@ func AddMember(db *sql.DB, newMem Member) int {
 			fmt.Println("Error at scanning resulted query")
 		}
 	}
-	return id
+	return strconv.Itoa(id)
 }
 
 //AddNewBook ..
@@ -150,4 +151,24 @@ func AddNewBook(db *sql.DB, newBook Book) {
 		log.Fatal(e)
 	}
 	fmt.Println("Book added to database!")
+}
+
+//GetPassword ..
+func GetPassword(db *sql.DB, email string) (string, string) {
+	q := `SELECT id,password FROM members WHERE email=?`
+	rec, e := db.Query(q, email)
+	if e != nil {
+		log.Fatalln(e)
+		fmt.Println("Error at query to find a record")
+	}
+	defer rec.Close()
+
+	var pkey string
+	var id int
+	for rec.Next() {
+		if err := rec.Scan(&id, &pkey); err != nil {
+			log.Fatal(err)
+		}
+	}
+	return strconv.Itoa(id), pkey
 }

@@ -21,20 +21,15 @@ var CookieHandler = securecookie.New(HashKey, BlockKey)
 //SessionStore ...
 var SessionStore = sessions.NewFilesystemStore("/tmp", HashKey)
 
-//Identity ..
-type Identity struct {
-	userID    int
-	sessionID string
-}
-
 //CreateSession ..
-func CreateSession(uID int, sID string,
+func CreateSession(uID string, sID string,
 	w http.ResponseWriter, r *http.Request) error {
 	session, err := SessionStore.Get(r, "Allsessions")
 	if err != nil {
 		fmt.Println(err)
 		log.Fatal()
 	}
+
 	session.Values["sessionID"] = sID
 	session.Values["userID"] = uID
 
@@ -71,23 +66,24 @@ func CheckSession(sID string, r *http.Request) bool {
 }
 
 //CreateCookie ..
-func CreateCookie(uID int, sID string, w http.ResponseWriter) error {
-	var val Identity
-	val.userID = uID
-	val.sessionID = sID
-
+func CreateCookie(uID string, sID string, w http.ResponseWriter) error {
+	val := map[string]string{
+		"sessionID": sID,
+	}
 	if encode, err := CookieHandler.Encode("mycookie", val); err == nil {
 		cookie := &http.Cookie{
-			Name:   "mycookie",
-			Path:   "/",
-			Value:  encode,
-			MaxAge: 3600,
+			Name:     "mycookie",
+			Path:     "/",
+			Value:    encode,
+			MaxAge:   3600,
+			Secure:   false,
+			HttpOnly: true,
 		}
 		http.SetCookie(w, cookie)
+		return nil
 	} else {
 		return err
 	}
-	return nil
 }
 
 //DeleteCookie ..
@@ -102,15 +98,15 @@ func DeleteCookie(w http.ResponseWriter) {
 }
 
 //ReadCookie ..
-func ReadCookie(r *http.Request) (Identity, error) {
-	var val Identity
+func ReadCookie(r *http.Request) (map[string]string, error) {
+	val := make(map[string]string)
 	if cookie, err := r.Cookie("mycookie"); err == nil {
 		if err = CookieHandler.Decode("mycookie", cookie.Value, &val); err == nil {
 			return val, err
 		}
-		return val, err
+		return nil, err
 	}
-	return val, nil
+	return nil, nil
 }
 
 //LoginForm ..
