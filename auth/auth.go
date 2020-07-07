@@ -19,7 +19,7 @@ var BlockKey = securecookie.GenerateRandomKey(32)
 var CookieHandler = securecookie.New(HashKey, BlockKey)
 
 //SessionStore ...
-var SessionStore = sessions.NewFilesystemStore("/store", HashKey)
+var SessionStore = sessions.NewFilesystemStore("./store", HashKey)
 
 //CreateSession ..
 func CreateSession(uID string, sID string,
