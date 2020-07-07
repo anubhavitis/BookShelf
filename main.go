@@ -106,6 +106,29 @@ func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 
 //UpdateHandler function
 func UpdateHandler(w http.ResponseWriter, req *http.Request) {
+	cval, err := auth.ReadCookie(req)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	f := 0
+	if cval == nil {
+		f = 1
+	} else {
+		if a, e := auth.CheckSession(cval["sessionID"], req); e == nil {
+			if a == false {
+				f = 1
+			}
+		} else {
+			fmt.Println(e)
+			return
+		}
+	}
+	if f == 1 {
+		auth.DeleteCookie(w)
+		tplauth.Execute(w, nil)
+		return
+	}
 
 	u, err := url.Parse(req.URL.String())
 	if err != nil {
@@ -126,9 +149,9 @@ func UpdateHandler(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	cval, err := auth.ReadCookie(req)
-	if err != nil {
-		fmt.Println(err)
+	cval, er := auth.ReadCookie(req)
+	if er != nil {
+		fmt.Println(er)
 		return
 	}
 	user, err := database.GetUser(db, cval["userID"])
@@ -159,7 +182,7 @@ func UpdateHandler(w http.ResponseWriter, req *http.Request) {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(fav, del, user)
+	fmt.Println(len(books))
 
 	tpl.Execute(w, books)
 
