@@ -116,7 +116,27 @@ func ReadBooks(db *sql.DB, user string) ([]Book, error) {
 		books = append(books, temp)
 		PriBooks[temp.Name] = temp
 	}
+	ReadAllBooks(db)
 	return books, nil
+}
+
+//ReadAllBooks read all books and stores it in the map books
+func ReadAllBooks(db *sql.DB) error {
+	rows, er := db.Query(`SELECT id,user,name,author FROM mybooks`)
+	if er != nil {
+		return er
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var id int
+		var name, user, author string
+		if err := rows.Scan(&id, &user, &name, &author); err != nil {
+			return err
+		}
+		fmt.Println(id, user, name, author)
+	}
+	return nil
 }
 
 //AddMember ..

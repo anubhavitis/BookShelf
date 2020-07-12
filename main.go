@@ -55,6 +55,7 @@ func IndexHandler(w http.ResponseWriter, req *http.Request) {
 		fmt.Println(err)
 		return
 	}
+	fmt.Println(user, len(books))
 	tpl.Execute(w, books)
 }
 
@@ -70,6 +71,7 @@ func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 		fmt.Println(err)
 		return
 	}
+	fmt.Println(user, "holding the session on the browser.")
 	books, err := database.ReadBooks(db, user)
 	if err != nil {
 		fmt.Println(err)
@@ -94,13 +96,13 @@ func SubmitHandler(w http.ResponseWriter, req *http.Request) {
 		}
 		return
 	}
-	err1 := database.AddNewBook(db, *newBook, cval["userID"])
+	err1 := database.AddNewBook(db, *newBook, user)
 	if err1 != nil {
 		fmt.Println(err1)
 		return
 	}
 	books = append(books, *newBook)
-
+	// database.ReadAllBooks(db)
 	tpl.Execute(w, books)
 }
 
@@ -265,6 +267,7 @@ func SignUp(w http.ResponseWriter, req *http.Request) {
 		fmt.Println(err)
 		return
 	}
+	fmt.Println(user, "holding the session on the browser.")
 	tpl.Execute(w, books)
 }
 
