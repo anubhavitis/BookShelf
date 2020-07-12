@@ -116,7 +116,6 @@ func ReadBooks(db *sql.DB, user string) ([]Book, error) {
 		books = append(books, temp)
 		PriBooks[temp.Name] = temp
 	}
-	ReadAllBooks(db)
 	return books, nil
 }
 
