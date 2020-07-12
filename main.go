@@ -23,7 +23,9 @@ func IndexHandler(w http.ResponseWriter, req *http.Request) {
 
 	cval, err := auth.ReadCookie(req)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println("1. ", err)
+		auth.DeleteCookie(w)
+		tplauth.Execute(w, nil)
 		return
 	}
 	f := 0
@@ -35,7 +37,7 @@ func IndexHandler(w http.ResponseWriter, req *http.Request) {
 				f = 1
 			}
 		} else {
-			fmt.Println(e)
+			fmt.Println("2 ", e)
 			return
 		}
 	}
@@ -285,8 +287,8 @@ func main() {
 		return
 	}
 	db = dab
-	database.NewBookTable(db)
-	database.NewMemberTable(db)
+	// database.NewBookTable(db)
+	// database.NewMemberTable(db)
 
 	mux := http.NewServeMux()
 	assets := http.FileServer(http.Dir("./assets"))
