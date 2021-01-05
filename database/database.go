@@ -53,11 +53,6 @@ func InitDb() (*sql.DB, error) {
 
 //NewBookTable ..
 func NewBookTable(db *sql.DB) error {
-
-	if _, err := db.Exec("DROP TABLE mybooks"); err != nil {
-		return err
-	}
-
 	query := `
 	CREATE TABLE IF NOT EXISTS
 	mybooks(
@@ -78,13 +73,9 @@ func NewBookTable(db *sql.DB) error {
 
 //NewMemberTable ..
 func NewMemberTable(db *sql.DB) error {
-
-	if _, err := db.Exec("DROP TABLE members"); err != nil {
-		return err
-	}
-
 	query := `
-	CREATE TABLE members(
+	CREATE TABLE IF NOT EXISTS
+	members(
 		id INT AUTO_INCREMENT,
 		name TEXT NOT NULL,
 		email TEXT NOT NULL,

@@ -287,8 +287,8 @@ func main() {
 		return
 	}
 	db = dab
-	// database.NewBookTable(db)
-	// database.NewMemberTable(db)
+	database.NewBookTable(db)
+	database.NewMemberTable(db)
 
 	mux := http.NewServeMux()
 	assets := http.FileServer(http.Dir("./assets"))
