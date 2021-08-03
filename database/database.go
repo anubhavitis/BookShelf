@@ -39,7 +39,7 @@ type Book struct {
 //InitDb ..
 func InitDb() (*sql.DB, error) {
 
-	dab, err := sql.Open("mysql", "sql12385164:Ij9fwZBM5s@(sql12.freemysqlhosting.net)/sql12385164?parseTime=true")
+	dab, err := sql.Open("mysql", "sql12412385:79R5KAwrIq@(sql12.freemysqlhosting.net)/sql12412385?parseTime=true")
 	if err != nil {
 		fmt.Println("Error at opening database")
 		return nil, err
